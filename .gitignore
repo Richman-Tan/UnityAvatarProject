@@ -20,6 +20,9 @@
 /[Uu]ser[Ss]ettings/
 *.log
 
+# UaaL iOS export (Phase 5) — consumed by ../../plugins/withUnityFramework.js
+/uaal-export/
+
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be committed to version control.
 *.blend1
 *.blend1.meta
