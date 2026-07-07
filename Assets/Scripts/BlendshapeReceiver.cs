@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 // Requires NativeWebSocket — install once via:
@@ -100,13 +99,13 @@ public class BlendshapeReceiver : MonoBehaviour
 
     void HandleMessage(string json)
     {
-        string type = ParseStringField(json, "type");
+        string type = CC4MessageProtocol.ParseStringField(json, "type");
 
         switch (type)
         {
             case "weights":
             {
-                var weights = ParseWeightsDict(json);
+                var weights = CC4MessageProtocol.ParseWeightsDict(json);
                 // An empty weights dict is a valid silence frame — don't skip it;
                 // ResetAll ensures the mouth closes cleanly between words.
                 if (weights == null) return;
@@ -123,7 +122,7 @@ public class BlendshapeReceiver : MonoBehaviour
 
             case "ready":
             {
-                string version = ParseStringField(json, "version");
+                string version = CC4MessageProtocol.ParseStringField(json, "version");
                 Debug.Log($"[BlendshapeReceiver] Server ready (protocol v{version})");
                 break;
             }
@@ -133,72 +132,5 @@ public class BlendshapeReceiver : MonoBehaviour
                 if (logFrames) Debug.LogWarning($"[BlendshapeReceiver] Unknown message type: '{type}'");
                 break;
         }
-    }
-
-    /// <summary>
-    /// Extracts a top-level string or number field from a flat JSON object without
-    /// a Newtonsoft dependency.  Returns null if the field is absent.
-    /// Works for both string values ("type":"weights") and number values ("version":2).
-    /// </summary>
-    static string ParseStringField(string json, string field)
-    {
-        string key   = "\"" + field + "\"";
-        int    start = json.IndexOf(key, System.StringComparison.Ordinal);
-        if (start < 0) return null;
-
-        int colon = json.IndexOf(':', start + key.Length);
-        if (colon < 0) return null;
-
-        // Skip whitespace after the colon
-        int valStart = colon + 1;
-        while (valStart < json.Length && json[valStart] == ' ') valStart++;
-        if (valStart >= json.Length) return null;
-
-        if (json[valStart] == '"')
-        {
-            // Quoted string value
-            int valEnd = json.IndexOf('"', valStart + 1);
-            if (valEnd < 0) return null;
-            return json.Substring(valStart + 1, valEnd - valStart - 1);
-        }
-        else
-        {
-            // Unquoted value (number, bool, null) — read until delimiter
-            int valEnd = valStart;
-            while (valEnd < json.Length && json[valEnd] != ',' && json[valEnd] != '}') valEnd++;
-            return json.Substring(valStart, valEnd - valStart).Trim();
-        }
-    }
-
-    /// <summary>
-    /// Parses the "weights" object from a { "type": "weights", "weights": {...} } message.
-    /// Returns null if no weights field is found; returns an empty dict for a silence frame.
-    /// </summary>
-    static Dictionary<string, float> ParseWeightsDict(string json)
-    {
-        int wStart = json.IndexOf("\"weights\"", System.StringComparison.Ordinal);
-        if (wStart < 0) return null;
-
-        int open  = json.IndexOf('{', wStart + 9);
-        int close = json.IndexOf('}', open + 1);
-        if (open < 0 || close < 0) return null;
-
-        var    result = new Dictionary<string, float>(8);
-        string inner  = json.Substring(open + 1, close - open - 1).Trim();
-        if (inner.Length == 0) return result; // empty object = silence
-
-        foreach (var pair in inner.Split(','))
-        {
-            int colon = pair.IndexOf(':');
-            if (colon < 0) continue;
-            string key    = pair.Substring(0, colon).Trim().Trim('"');
-            string valStr = pair.Substring(colon + 1).Trim();
-            if (float.TryParse(valStr,
-                               System.Globalization.NumberStyles.Float,
-                               System.Globalization.CultureInfo.InvariantCulture,
-                               out float val))
-                result[key] = val;
-        }
-        return result;
     }
 }
