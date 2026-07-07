@@ -17,3 +17,9 @@
 *.asset filter=lfs diff=lfs merge=lfs -text
 *.cubemap filter=lfs diff=lfs merge=lfs -text
 *.unitypackage filter=lfs diff=lfs merge=lfs -text
+
+# Prebuilt UaaL iOS artifact (Phase 5) — entirely build output, several files
+# have no extension at all (Data/level0, Data/globalgamemanagers, the
+# UnityFramework binary itself), so a path-based catch-all is simpler and more
+# robust than enumerating extensions.
+UnityLibrary/** filter=lfs diff=lfs merge=lfs -text
