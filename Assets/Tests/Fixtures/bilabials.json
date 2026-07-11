@@ -1,0 +1,460 @@
+{
+  "type": "play",
+  "name": "bilabials",
+  "text": "Peter put a pumpkin by the barn.",
+  "duration": 3.13,
+  "visemes": [
+    {
+      "t": 0.1,
+      "d": 0.077,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 0.177,
+      "d": 0.141,
+      "v": "ee",
+      "w": 0.85
+    },
+    {
+      "t": 0.318,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.9
+    },
+    {
+      "t": 0.395,
+      "d": 0.141,
+      "v": "v_rr",
+      "w": 0.85
+    },
+    {
+      "t": 0.576,
+      "d": 0.077,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 0.653,
+      "d": 0.141,
+      "v": "ou",
+      "w": 0.85
+    },
+    {
+      "t": 0.794,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.9
+    },
+    {
+      "t": 0.911,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 1.092,
+      "d": 0.077,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 1.169,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 1.31,
+      "d": 0.09,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 1.399,
+      "d": 0.077,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 1.476,
+      "d": 0.077,
+      "v": "v_kk",
+      "w": 0.9
+    },
+    {
+      "t": 1.553,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 1.694,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.8
+    },
+    {
+      "t": 1.824,
+      "d": 0.077,
+      "v": "v_pp",
+      "w": 0.646
+    },
+    {
+      "t": 1.901,
+      "d": 0.192,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 2.133,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.578
+    },
+    {
+      "t": 2.249,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 2.43,
+      "d": 0.077,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 2.507,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 2.648,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.7
+    },
+    {
+      "t": 2.75,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.8
+    }
+  ],
+  "blendshapes": [
+    {
+      "time": 0.1,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 0.177,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    },
+    {
+      "time": 0.318,
+      "weights": {
+        "jaw_drive": 0.198,
+        "V_Lip_Open": 0.18000000000000002,
+        "V_Open": 0.25200000000000006,
+        "Mouth_Lips_Pull_DL": 0.12600000000000003,
+        "Mouth_Lips_Pull_DR": 0.12600000000000003
+      }
+    },
+    {
+      "time": 0.395,
+      "weights": {
+        "V_Tight_O": 0.408,
+        "jaw_drive": 0.136,
+        "V_Lip_Open": 0.136
+      }
+    },
+    {
+      "time": 0.576,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 0.653,
+      "weights": {
+        "jaw_drive": 0.2125,
+        "V_Lip_Open": 0.187,
+        "V_Tight_O": 0.85
+      }
+    },
+    {
+      "time": 0.794,
+      "weights": {
+        "jaw_drive": 0.198,
+        "V_Lip_Open": 0.18000000000000002,
+        "V_Open": 0.25200000000000006,
+        "Mouth_Lips_Pull_DL": 0.12600000000000003,
+        "Mouth_Lips_Pull_DR": 0.12600000000000003
+      }
+    },
+    {
+      "time": 0.911,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 1.092,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 1.169,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 1.31,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 1.399,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 1.476,
+      "weights": {
+        "jaw_drive": 0.28800000000000003,
+        "V_Lip_Open": 0.25200000000000006,
+        "V_Open": 0.198,
+        "Mouth_Lips_Pull_DL": 0.162,
+        "Mouth_Lips_Pull_DR": 0.162
+      }
+    },
+    {
+      "time": 1.553,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 1.694,
+      "weights": {
+        "jaw_drive": 0.17600000000000002,
+        "V_Lip_Open": 0.16000000000000003,
+        "V_Open": 0.22400000000000003,
+        "Mouth_Lips_Pull_DL": 0.11200000000000002,
+        "Mouth_Lips_Pull_DR": 0.11200000000000002
+      }
+    },
+    {
+      "time": 1.824,
+      "weights": {
+        "V_Explosive": 0.646,
+        "Mouth_Lips_Press_L": 0.2584,
+        "Mouth_Lips_Press_R": 0.2584
+      }
+    },
+    {
+      "time": 1.901,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 2.133,
+      "weights": {
+        "jaw_drive": 0.06935999999999999,
+        "V_Lip_Open": 0.06935999999999999,
+        "V_Open": 0.08669999999999999
+      }
+    },
+    {
+      "time": 2.249,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 2.43,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 2.507,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 2.648,
+      "weights": {
+        "V_Tight_O": 0.33599999999999997,
+        "jaw_drive": 0.11199999999999999,
+        "V_Lip_Open": 0.11199999999999999
+      }
+    },
+    {
+      "time": 2.75,
+      "weights": {
+        "jaw_drive": 0.17600000000000002,
+        "V_Lip_Open": 0.16000000000000003,
+        "V_Open": 0.22400000000000003,
+        "Mouth_Lips_Pull_DL": 0.11200000000000002,
+        "Mouth_Lips_Pull_DR": 0.11200000000000002
+      }
+    }
+  ],
+  "checks": [
+    {
+      "time": 0.138,
+      "type": "bilabial",
+      "label": "P-peter"
+    },
+    {
+      "time": 0.247,
+      "type": "peak",
+      "viseme": "ee",
+      "label": "IY-peter"
+    },
+    {
+      "time": 0.356,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "T-peter"
+    },
+    {
+      "time": 0.614,
+      "type": "bilabial",
+      "label": "P-put"
+    },
+    {
+      "time": 0.723,
+      "type": "peak",
+      "viseme": "ou",
+      "label": "UH-put"
+    },
+    {
+      "time": 0.832,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "T-put"
+    },
+    {
+      "time": 1.13,
+      "type": "bilabial",
+      "label": "P-pumpkin"
+    },
+    {
+      "time": 1.239,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AH-pumpkin"
+    },
+    {
+      "time": 1.355,
+      "type": "bilabial",
+      "label": "M-pumpkin"
+    },
+    {
+      "time": 1.438,
+      "type": "bilabial",
+      "label": "P-pumpkin"
+    },
+    {
+      "time": 1.739,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-pumpkin"
+    },
+    {
+      "time": 1.863,
+      "type": "bilabial",
+      "label": "B-by"
+    },
+    {
+      "time": 2.191,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "DH-the"
+    },
+    {
+      "time": 2.468,
+      "type": "bilabial",
+      "label": "B-barn"
+    },
+    {
+      "time": 2.577,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AA-barn"
+    },
+    {
+      "time": 2.795,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-barn"
+    },
+    {
+      "time": 3.11,
+      "type": "end",
+      "label": "segment-end"
+    }
+  ]
+}

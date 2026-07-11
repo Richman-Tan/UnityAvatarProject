@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 216369590}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -778,8 +778,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216369588}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.028312098, y: 0.96722096, z: -0.12580113, w: -0.21876028}
-  m_LocalPosition: {x: 0.52318436, y: 1.595138, z: 1.042582}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.0002732434, y: 1.6992964, z: 0.68954813}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -870,7 +870,7 @@ Camera:
     height: 1
   near clip plane: 0.05
   far clip plane: 1000
-  field of view: 60
+  field of view: 24
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1204,30 +1204,6 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!1 &266369533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6314813869636792599, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
-  m_PrefabInstance: {fileID: 479747784}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &266369537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266369533}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2d4390389bbf4dff8f541f1cbeef209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AvatarController
-  smoothingTau: 0.03
-  jawBoneName: CC_Base_JawRoot
-  lowerTeethBoneName: CC_Base_Teeth02
-  maxJawAngle: 2.3
-  jawFlipDirection: 0
-  testShapeName: Jaw_Open
-  testShapeValue: 1
 --- !u!1 &327266563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1717,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 201263662}
     m_Modifications:
+    - target: {fileID: 2322246046690301888, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 397
+      objectReference: {fileID: 0}
     - target: {fileID: 2483564562357886882, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.033570074
@@ -1800,6 +1780,14 @@ PrefabInstance:
     - target: {fileID: 2908634094764030704, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
       propertyPath: m_Name
       value: HD_Aaron
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001717960562237369, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 397
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654048215034098280, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
+      propertyPath: m_Name
+      value: HD_Aaron_Rig
       objectReference: {fileID: 0}
     - target: {fileID: 7793224378548839421, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1874,9 +1862,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2908634094764030704, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1408937380}
-    - targetCorrespondingSourceObject: {fileID: 6314813869636792599, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2908634094764030704, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 266369537}
+      addedObject: {fileID: 1408937381}
   m_SourcePrefab: {fileID: 100100000, guid: e5d780cce896f4f1b8c4f47b299ff9b2, type: 3}
 --- !u!1 &482705974
 GameObject:
@@ -4959,7 +4947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1390208486
 Transform:
   m_ObjectHideFlags: 0
@@ -5104,6 +5092,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IdleAnimator
   state: 0
   gazeHorizontalFlip: 0
+--- !u!114 &1408937381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408937375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20c9f12e654c64188a3a4fc715102af4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NativeBridgeReceiver
+  tuning: {fileID: 11400000, guid: c1dbf4bb5d03e43f48a03575dd848d1c, type: 2}
+  logFrames: 0
 --- !u!1 &1437471661
 GameObject:
   m_ObjectHideFlags: 0
@@ -7407,7 +7409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1977344420
 Transform:
   m_ObjectHideFlags: 0

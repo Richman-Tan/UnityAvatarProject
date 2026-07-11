@@ -110,6 +110,39 @@ public static class CC4MessageProtocol
         return result;
     }
 
+    /// <summary>
+    /// Parses a `"fieldName": [{"t":0.1,"d":0.08,"v":"v_pp","w":0.95}, ...]` array —
+    /// the raw 14-key viseme event timeline added to the play message for the
+    /// Unity-side co-articulation engine. Returns null if the field is absent
+    /// (legacy payloads), letting callers fall back to the keyframe path.
+    /// </summary>
+    public static List<CoarticulationEngine.VisemeEvent> ParseVisemeArray(string json, string fieldName = "visemes")
+    {
+        string key    = "\"" + fieldName + "\"";
+        int    kStart = json.IndexOf(key, System.StringComparison.Ordinal);
+        if (kStart < 0) return null;
+
+        int open  = json.IndexOf('[', kStart + key.Length);
+        int close = FindMatchingBracket(json, open);
+        if (open < 0 || close < 0) return null;
+
+        string inner  = json.Substring(open + 1, close - open - 1).Trim();
+        var    result = new List<CoarticulationEngine.VisemeEvent>();
+        if (inner.Length == 0) return result;
+
+        foreach (var element in SplitTopLevel(inner, ','))
+        {
+            result.Add(new CoarticulationEngine.VisemeEvent
+            {
+                t = ParseFloatField(element, "t"),
+                d = ParseFloatField(element, "d"),
+                v = ParseStringField(element, "v") ?? "neutral",
+                w = ParseFloatField(element, "w", 1f),
+            });
+        }
+        return result;
+    }
+
     // ── Brace/bracket-depth scanning ─────────────────────────────────────────
     // Needed because keyframe elements themselves contain a nested `weights: {}`
     // object — a naive split on the first '}' or top-level ',' would cut a

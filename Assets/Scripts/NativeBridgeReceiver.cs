@@ -6,32 +6,42 @@ using UnityEngine;
 /// to <see cref="BlendshapeReceiver"/>'s dev-only WebSocket relay path.
 ///
 /// Unlike the WS relay (which streams pre-interpolated weights at 60fps), the
-/// native bridge sends the FULL keyframe timeline in one message and lets Unity
-/// own the playback clock — driving a 60fps loop across the native module bridge
-/// per-call would be far more jittery/expensive than a real WebSocket. The
-/// interpolation logic here is a direct port of `weightsAtTime()` from
-/// unity-avatar/tools/ws-test-server.js, which was already proven correct in the
-/// dev harness.
+/// native bridge sends the FULL timeline in one message and lets Unity own the
+/// playback clock — driving a 60fps loop across the native module bridge
+/// per-call would be far more jittery/expensive than a real WebSocket.
 ///
 /// Called from native (Swift) via:
 ///   UnityFramework.sendMessageToGOWithName("HD_Aaron", "ReceiveBridgeMessage", json)
 ///
 /// Message protocol:
 ///   { "type": "play", "startTimeUnityTime": 12.34, "duration": 3.2,
-///     "blendshapes": [{"time": 0.0, "weights": {...}}, ...] }
+///     "visemes":     [{"t":0.1,"d":0.08,"v":"v_pp","w":0.95}, ...],   // preferred
+///     "blendshapes": [{"time": 0.0, "weights": {...}}, ...] }         // legacy
 ///   { "type": "stop" }
+///
+/// When a `visemes` array is present, the raw 14-key timeline is baked ONCE
+/// through <see cref="CoarticulationEngine"/> (dominance-envelope co-articulation,
+/// tongue shapes, guaranteed bilabial closure) and the baked curves drive the
+/// avatar. The legacy `blendshapes` keyframe-lerp path is kept for older
+/// payloads and as a fallback.
 /// </summary>
-[RequireComponent(typeof(AvatarController))]
 public class NativeBridgeReceiver : MonoBehaviour
 {
+    [Header("Co-articulation")]
+    [Tooltip("Tuning asset for the co-articulation engine. Falls back to code defaults when unset.")]
+    public LipSyncTuning tuning;
+
     [Header("Debug")]
     public bool logFrames = false;
 
     private AvatarController _avatar;
     private List<(float time, Dictionary<string, float> weights)> _keyframes;
+    private CoarticulationEngine.BakedCurves _baked;
+    private readonly Dictionary<string, float> _bakedWeights = new();
     private float _duration;
     private float _startTime;
     private bool  _playing;
+    private bool  _snapOnFirstFrame;
 
     void Start()
     {
@@ -49,18 +59,38 @@ public class NativeBridgeReceiver : MonoBehaviour
         {
             case "play":
             {
-                _keyframes = CC4MessageProtocol.ParseKeyframeArray(json, "blendshapes");
-                _duration  = CC4MessageProtocol.ParseFloatField(json, "duration");
+                _duration = CC4MessageProtocol.ParseFloatField(json, "duration");
                 float anchor = CC4MessageProtocol.ParseFloatField(json, "startTimeUnityTime", -1f);
                 _startTime = anchor >= 0f ? anchor : Time.time;
-                _playing   = _keyframes != null && _keyframes.Count > 0 && _duration > 0f;
-                if (logFrames)
-                    Debug.Log($"[NativeBridgeReceiver] play: {_keyframes?.Count ?? 0} keyframes, duration {_duration:F2}s, anchor {_startTime:F2}");
+
+                var visemes = CC4MessageProtocol.ParseVisemeArray(json);
+                if (visemes != null && visemes.Count > 0)
+                {
+                    _baked     = CoarticulationEngine.Bake(visemes, _duration, tuning);
+                    _keyframes = null;
+                    // The baked tail includes the final release envelope; keep playing
+                    // through it so the mouth closes smoothly instead of being cut off.
+                    _duration  = Mathf.Max(_duration, _baked.duration);
+                    _playing   = _duration > 0f;
+                    _snapOnFirstFrame = true;
+                    _avatar.SetLipSmoothing(tuning != null ? tuning : LipSyncTuning.Defaults);
+                    if (logFrames)
+                        Debug.Log($"[NativeBridgeReceiver] play (baked): {visemes.Count} visemes -> {_baked.FrameCount} frames, duration {_duration:F2}s");
+                }
+                else
+                {
+                    _keyframes = CC4MessageProtocol.ParseKeyframeArray(json, "blendshapes");
+                    _baked     = null;
+                    _playing   = _keyframes != null && _keyframes.Count > 0 && _duration > 0f;
+                    if (logFrames)
+                        Debug.Log($"[NativeBridgeReceiver] play (legacy): {_keyframes?.Count ?? 0} keyframes, duration {_duration:F2}s, anchor {_startTime:F2}");
+                }
                 break;
             }
 
             case "stop":
                 _playing = false;
+                _baked   = null;
                 _avatar.ResetAll();
                 if (logFrames) Debug.Log("[NativeBridgeReceiver] stop");
                 break;
@@ -83,15 +113,27 @@ public class NativeBridgeReceiver : MonoBehaviour
             return;
         }
 
+        if (_baked != null)
+        {
+            _baked.WeightsAtTime(elapsed, _bakedWeights);
+            if (_bakedWeights.Count == 0) _avatar.ResetAll();
+            else _avatar.SetTargetWeights(_bakedWeights);
+            if (_snapOnFirstFrame)
+            {
+                _snapOnFirstFrame = false;
+                _avatar.SnapLipTargets();
+            }
+            return;
+        }
+
         var weights = WeightsAtTime(elapsed);
         if (weights.Count == 0) _avatar.ResetAll();
         else _avatar.SetTargetWeights(weights);
     }
 
-    /// <summary>Direct port of weightsAtTime() from ws-test-server.js — linear
-    /// interpolation between the two keyframes bracketing `t`, clamped at the
-    /// timeline's ends. No looping (that's a demo-mode-only concept, not needed
-    /// for a real playback segment).</summary>
+    /// <summary>Legacy path: linear interpolation between the two keyframes
+    /// bracketing `t`, clamped at the timeline's ends (a direct port of
+    /// weightsAtTime() from ws-test-server.js).</summary>
     Dictionary<string, float> WeightsAtTime(float t)
     {
         var result = new Dictionary<string, float>();

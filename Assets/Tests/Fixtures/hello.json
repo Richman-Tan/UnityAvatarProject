@@ -1,0 +1,364 @@
+{
+  "type": "play",
+  "name": "hello",
+  "text": "Hello, how are you feeling today?",
+  "duration": 3.213,
+  "visemes": [
+    {
+      "t": 0.1,
+      "d": 0.115,
+      "v": "neutral",
+      "w": 0.25
+    },
+    {
+      "t": 0.215,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 0.356,
+      "d": 0.103,
+      "v": "v_dd",
+      "w": 0.7
+    },
+    {
+      "t": 0.459,
+      "d": 0.192,
+      "v": "oh",
+      "w": 0.85
+    },
+    {
+      "t": 0.891,
+      "d": 0.115,
+      "v": "neutral",
+      "w": 0.25
+    },
+    {
+      "t": 1.007,
+      "d": 0.192,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 1.239,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 1.38,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.476
+    },
+    {
+      "t": 1.523,
+      "d": 0.103,
+      "v": "ee",
+      "w": 0.476
+    },
+    {
+      "t": 1.625,
+      "d": 0.141,
+      "v": "ou",
+      "w": 0.578
+    },
+    {
+      "t": 1.806,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 1.922,
+      "d": 0.141,
+      "v": "ee",
+      "w": 0.85
+    },
+    {
+      "t": 2.063,
+      "d": 0.103,
+      "v": "v_dd",
+      "w": 0.7
+    },
+    {
+      "t": 2.165,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 2.306,
+      "d": 0.09,
+      "v": "v_kk",
+      "w": 0.8
+    },
+    {
+      "t": 2.436,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.9
+    },
+    {
+      "t": 2.513,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 2.654,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.9
+    },
+    {
+      "t": 2.731,
+      "d": 0.192,
+      "v": "ee",
+      "w": 0.85
+    }
+  ],
+  "blendshapes": [
+    {
+      "time": 0.1,
+      "weights": {}
+    },
+    {
+      "time": 0.215,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 0.356,
+      "weights": {
+        "jaw_drive": 0.154,
+        "V_Lip_Open": 0.13999999999999999,
+        "V_Open": 0.196,
+        "Mouth_Lips_Pull_DL": 0.098,
+        "Mouth_Lips_Pull_DR": 0.098
+      }
+    },
+    {
+      "time": 0.459,
+      "weights": {
+        "jaw_drive": 0.595,
+        "V_Lip_Open": 0.5525,
+        "V_Open": 0.49299999999999994,
+        "Mouth_Lips_Pull_DL": 0.2975,
+        "Mouth_Lips_Pull_DR": 0.2975,
+        "Mouth_Lips_Pull_UL": 0.187,
+        "Mouth_Lips_Pull_UR": 0.187
+      }
+    },
+    {
+      "time": 0.891,
+      "weights": {}
+    },
+    {
+      "time": 1.007,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 1.239,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 1.38,
+      "weights": {
+        "V_Tight_O": 0.22848,
+        "jaw_drive": 0.07615999999999999,
+        "V_Lip_Open": 0.07615999999999999
+      }
+    },
+    {
+      "time": 1.523,
+      "weights": {
+        "jaw_drive": 0.08567999999999999,
+        "V_Lip_Open": 0.08567999999999999,
+        "V_Tight": 0.4284
+      }
+    },
+    {
+      "time": 1.625,
+      "weights": {
+        "jaw_drive": 0.1445,
+        "V_Lip_Open": 0.12716,
+        "V_Tight_O": 0.578
+      }
+    },
+    {
+      "time": 1.806,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 1.922,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    },
+    {
+      "time": 2.063,
+      "weights": {
+        "jaw_drive": 0.154,
+        "V_Lip_Open": 0.13999999999999999,
+        "V_Open": 0.196,
+        "Mouth_Lips_Pull_DL": 0.098,
+        "Mouth_Lips_Pull_DR": 0.098
+      }
+    },
+    {
+      "time": 2.165,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 2.306,
+      "weights": {
+        "jaw_drive": 0.256,
+        "V_Lip_Open": 0.22400000000000003,
+        "V_Open": 0.17600000000000002,
+        "Mouth_Lips_Pull_DL": 0.144,
+        "Mouth_Lips_Pull_DR": 0.144
+      }
+    },
+    {
+      "time": 2.436,
+      "weights": {
+        "jaw_drive": 0.198,
+        "V_Lip_Open": 0.18000000000000002,
+        "V_Open": 0.25200000000000006,
+        "Mouth_Lips_Pull_DL": 0.12600000000000003,
+        "Mouth_Lips_Pull_DR": 0.12600000000000003
+      }
+    },
+    {
+      "time": 2.513,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 2.654,
+      "weights": {
+        "jaw_drive": 0.198,
+        "V_Lip_Open": 0.18000000000000002,
+        "V_Open": 0.25200000000000006,
+        "Mouth_Lips_Pull_DL": 0.12600000000000003,
+        "Mouth_Lips_Pull_DR": 0.12600000000000003
+      }
+    },
+    {
+      "time": 2.731,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    }
+  ],
+  "checks": [
+    {
+      "time": 0.286,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AH-hello"
+    },
+    {
+      "time": 0.408,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "L-hello"
+    },
+    {
+      "time": 0.791,
+      "type": "silence",
+      "label": "pause"
+    },
+    {
+      "time": 1.103,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AW-how"
+    },
+    {
+      "time": 1.864,
+      "type": "labiodental",
+      "label": "F-feeling"
+    },
+    {
+      "time": 1.992,
+      "type": "peak",
+      "viseme": "ee",
+      "label": "IY-feeling"
+    },
+    {
+      "time": 2.114,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "L-feeling"
+    },
+    {
+      "time": 2.474,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "T-today"
+    },
+    {
+      "time": 2.583,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AH-today"
+    },
+    {
+      "time": 2.692,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "D-today"
+    },
+    {
+      "time": 3.193,
+      "type": "end",
+      "label": "segment-end"
+    }
+  ]
+}

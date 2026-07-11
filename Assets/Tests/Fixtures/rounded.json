@@ -1,0 +1,243 @@
+{
+  "type": "play",
+  "name": "rounded",
+  "text": "Who would choose your shoes?",
+  "duration": 2.217,
+  "visemes": [
+    {
+      "t": 0.1,
+      "d": 0.115,
+      "v": "neutral",
+      "w": 0.25
+    },
+    {
+      "t": 0.215,
+      "d": 0.141,
+      "v": "ou",
+      "w": 0.85
+    },
+    {
+      "t": 0.396,
+      "d": 0.103,
+      "v": "ou",
+      "w": 0.7
+    },
+    {
+      "t": 0.499,
+      "d": 0.141,
+      "v": "ou",
+      "w": 0.85
+    },
+    {
+      "t": 0.64,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.9
+    },
+    {
+      "t": 0.757,
+      "d": 0.115,
+      "v": "v_ch",
+      "w": 0.8
+    },
+    {
+      "t": 0.872,
+      "d": 0.141,
+      "v": "ou",
+      "w": 0.85
+    },
+    {
+      "t": 1.013,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 1.169,
+      "d": 0.103,
+      "v": "ee",
+      "w": 0.476
+    },
+    {
+      "t": 1.271,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 1.412,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.476
+    },
+    {
+      "t": 1.555,
+      "d": 0.115,
+      "v": "v_ch",
+      "w": 0.85
+    },
+    {
+      "t": 1.67,
+      "d": 0.141,
+      "v": "ou",
+      "w": 0.85
+    },
+    {
+      "t": 1.811,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    }
+  ],
+  "blendshapes": [
+    {
+      "time": 0.1,
+      "weights": {}
+    },
+    {
+      "time": 0.215,
+      "weights": {
+        "jaw_drive": 0.2125,
+        "V_Lip_Open": 0.187,
+        "V_Tight_O": 0.85
+      }
+    },
+    {
+      "time": 0.396,
+      "weights": {
+        "jaw_drive": 0.175,
+        "V_Lip_Open": 0.154,
+        "V_Tight_O": 0.7
+      }
+    },
+    {
+      "time": 0.499,
+      "weights": {
+        "jaw_drive": 0.2125,
+        "V_Lip_Open": 0.187,
+        "V_Tight_O": 0.85
+      }
+    },
+    {
+      "time": 0.64,
+      "weights": {
+        "jaw_drive": 0.198,
+        "V_Lip_Open": 0.18000000000000002,
+        "V_Open": 0.25200000000000006,
+        "Mouth_Lips_Pull_DL": 0.12600000000000003,
+        "Mouth_Lips_Pull_DR": 0.12600000000000003
+      }
+    },
+    {
+      "time": 0.757,
+      "weights": {
+        "V_Affricate": 0.7200000000000001,
+        "jaw_drive": 0.12,
+        "V_Lip_Open": 0.096
+      }
+    },
+    {
+      "time": 0.872,
+      "weights": {
+        "jaw_drive": 0.2125,
+        "V_Lip_Open": 0.187,
+        "V_Tight_O": 0.85
+      }
+    },
+    {
+      "time": 1.013,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 1.169,
+      "weights": {
+        "jaw_drive": 0.08567999999999999,
+        "V_Lip_Open": 0.08567999999999999,
+        "V_Tight": 0.4284
+      }
+    },
+    {
+      "time": 1.271,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 1.412,
+      "weights": {
+        "V_Tight_O": 0.22848,
+        "jaw_drive": 0.07615999999999999,
+        "V_Lip_Open": 0.07615999999999999
+      }
+    },
+    {
+      "time": 1.555,
+      "weights": {
+        "V_Affricate": 0.765,
+        "jaw_drive": 0.1275,
+        "V_Lip_Open": 0.102
+      }
+    },
+    {
+      "time": 1.67,
+      "weights": {
+        "jaw_drive": 0.2125,
+        "V_Lip_Open": 0.187,
+        "V_Tight_O": 0.85
+      }
+    },
+    {
+      "time": 1.811,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    }
+  ],
+  "checks": [
+    {
+      "time": 0.286,
+      "type": "peak",
+      "viseme": "ou",
+      "label": "UW-who"
+    },
+    {
+      "time": 0.569,
+      "type": "peak",
+      "viseme": "ou",
+      "label": "UH-would"
+    },
+    {
+      "time": 0.678,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "D-would"
+    },
+    {
+      "time": 0.943,
+      "type": "peak",
+      "viseme": "ou",
+      "label": "UW-choose"
+    },
+    {
+      "time": 1.741,
+      "type": "peak",
+      "viseme": "ou",
+      "label": "UW-shoes"
+    },
+    {
+      "time": 2.197,
+      "type": "end",
+      "label": "segment-end"
+    }
+  ]
+}

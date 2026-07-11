@@ -1,0 +1,426 @@
+{
+  "type": "play",
+  "name": "labiodental",
+  "text": "Five very fine views of the valley.",
+  "duration": 3.438,
+  "visemes": [
+    {
+      "t": 0.1,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 0.215,
+      "d": 0.192,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 0.408,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 0.563,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 0.678,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 0.819,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.7
+    },
+    {
+      "t": 0.922,
+      "d": 0.141,
+      "v": "ee",
+      "w": 0.85
+    },
+    {
+      "t": 1.103,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 1.218,
+      "d": 0.192,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 1.411,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.8
+    },
+    {
+      "t": 1.541,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 1.656,
+      "d": 0.103,
+      "v": "ee",
+      "w": 0.7
+    },
+    {
+      "t": 1.758,
+      "d": 0.141,
+      "v": "ou",
+      "w": 0.85
+    },
+    {
+      "t": 1.899,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 2.055,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 2.196,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.612
+    },
+    {
+      "t": 2.351,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.578
+    },
+    {
+      "t": 2.467,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 2.648,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 2.763,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 2.904,
+      "d": 0.103,
+      "v": "v_dd",
+      "w": 0.7
+    },
+    {
+      "t": 3.007,
+      "d": 0.141,
+      "v": "ee",
+      "w": 0.85
+    }
+  ],
+  "blendshapes": [
+    {
+      "time": 0.1,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 0.215,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 0.408,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 0.563,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 0.678,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 0.819,
+      "weights": {
+        "V_Tight_O": 0.33599999999999997,
+        "jaw_drive": 0.11199999999999999,
+        "V_Lip_Open": 0.11199999999999999
+      }
+    },
+    {
+      "time": 0.922,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    },
+    {
+      "time": 1.103,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 1.218,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 1.411,
+      "weights": {
+        "jaw_drive": 0.17600000000000002,
+        "V_Lip_Open": 0.16000000000000003,
+        "V_Open": 0.22400000000000003,
+        "Mouth_Lips_Pull_DL": 0.11200000000000002,
+        "Mouth_Lips_Pull_DR": 0.11200000000000002
+      }
+    },
+    {
+      "time": 1.541,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 1.656,
+      "weights": {
+        "jaw_drive": 0.126,
+        "V_Lip_Open": 0.126,
+        "V_Tight": 0.63
+      }
+    },
+    {
+      "time": 1.758,
+      "weights": {
+        "jaw_drive": 0.2125,
+        "V_Lip_Open": 0.187,
+        "V_Tight_O": 0.85
+      }
+    },
+    {
+      "time": 1.899,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 2.055,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 2.196,
+      "weights": {
+        "V_Dental_Lip": 0.612,
+        "jaw_drive": 0.048960000000000004
+      }
+    },
+    {
+      "time": 2.351,
+      "weights": {
+        "jaw_drive": 0.06935999999999999,
+        "V_Lip_Open": 0.06935999999999999,
+        "V_Open": 0.08669999999999999
+      }
+    },
+    {
+      "time": 2.467,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 2.648,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 2.763,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 2.904,
+      "weights": {
+        "jaw_drive": 0.154,
+        "V_Lip_Open": 0.13999999999999999,
+        "V_Open": 0.196,
+        "Mouth_Lips_Pull_DL": 0.098,
+        "Mouth_Lips_Pull_DR": 0.098
+      }
+    },
+    {
+      "time": 3.007,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    }
+  ],
+  "checks": [
+    {
+      "time": 0.158,
+      "type": "labiodental",
+      "label": "F-five"
+    },
+    {
+      "time": 0.312,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AY-five"
+    },
+    {
+      "time": 0.465,
+      "type": "labiodental",
+      "label": "V-five"
+    },
+    {
+      "time": 0.621,
+      "type": "labiodental",
+      "label": "V-very"
+    },
+    {
+      "time": 0.749,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "EH-very"
+    },
+    {
+      "time": 1.161,
+      "type": "labiodental",
+      "label": "F-fine"
+    },
+    {
+      "time": 1.315,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AY-fine"
+    },
+    {
+      "time": 1.456,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-fine"
+    },
+    {
+      "time": 1.598,
+      "type": "labiodental",
+      "label": "V-views"
+    },
+    {
+      "time": 1.829,
+      "type": "peak",
+      "viseme": "ou",
+      "label": "UW-views"
+    },
+    {
+      "time": 2.254,
+      "type": "labiodental",
+      "label": "V-of"
+    },
+    {
+      "time": 2.409,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "DH-the"
+    },
+    {
+      "time": 2.705,
+      "type": "labiodental",
+      "label": "V-valley"
+    },
+    {
+      "time": 2.834,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AE-valley"
+    },
+    {
+      "time": 2.955,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "L-valley"
+    },
+    {
+      "time": 3.418,
+      "type": "end",
+      "label": "segment-end"
+    }
+  ]
+}

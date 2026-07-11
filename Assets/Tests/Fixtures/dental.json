@@ -1,0 +1,409 @@
+{
+  "type": "play",
+  "name": "dental",
+  "text": "This thing is thicker than that thing.",
+  "duration": 3.104,
+  "visemes": [
+    {
+      "t": 0.1,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.85
+    },
+    {
+      "t": 0.215,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 0.356,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 0.512,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.85
+    },
+    {
+      "t": 0.627,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 0.768,
+      "d": 0.09,
+      "v": "v_kk",
+      "w": 0.8
+    },
+    {
+      "t": 0.898,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.578
+    },
+    {
+      "t": 1.039,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.578
+    },
+    {
+      "t": 1.194,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.85
+    },
+    {
+      "t": 1.31,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 1.451,
+      "d": 0.077,
+      "v": "v_kk",
+      "w": 0.9
+    },
+    {
+      "t": 1.528,
+      "d": 0.141,
+      "v": "v_rr",
+      "w": 0.85
+    },
+    {
+      "t": 1.709,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.578
+    },
+    {
+      "t": 1.824,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 1.965,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.544
+    },
+    {
+      "t": 2.095,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.578
+    },
+    {
+      "t": 2.21,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.578
+    },
+    {
+      "t": 2.351,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.612
+    },
+    {
+      "t": 2.468,
+      "d": 0.115,
+      "v": "v_th",
+      "w": 0.85
+    },
+    {
+      "t": 2.584,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 2.725,
+      "d": 0.09,
+      "v": "v_kk",
+      "w": 0.8
+    }
+  ],
+  "blendshapes": [
+    {
+      "time": 0.1,
+      "weights": {
+        "jaw_drive": 0.102,
+        "V_Lip_Open": 0.102,
+        "V_Open": 0.1275
+      }
+    },
+    {
+      "time": 0.215,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 0.356,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 0.512,
+      "weights": {
+        "jaw_drive": 0.102,
+        "V_Lip_Open": 0.102,
+        "V_Open": 0.1275
+      }
+    },
+    {
+      "time": 0.627,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 0.768,
+      "weights": {
+        "jaw_drive": 0.256,
+        "V_Lip_Open": 0.22400000000000003,
+        "V_Open": 0.17600000000000002,
+        "Mouth_Lips_Pull_DL": 0.144,
+        "Mouth_Lips_Pull_DR": 0.144
+      }
+    },
+    {
+      "time": 0.898,
+      "weights": {
+        "jaw_drive": 0.2601,
+        "V_Lip_Open": 0.24275999999999998,
+        "V_Wide": 0.5202,
+        "Mouth_Lips_Pull_DL": 0.12716,
+        "Mouth_Lips_Pull_DR": 0.12716
+      }
+    },
+    {
+      "time": 1.039,
+      "weights": {
+        "V_Tight": 0.20229999999999998,
+        "jaw_drive": 0.046239999999999996
+      }
+    },
+    {
+      "time": 1.194,
+      "weights": {
+        "jaw_drive": 0.102,
+        "V_Lip_Open": 0.102,
+        "V_Open": 0.1275
+      }
+    },
+    {
+      "time": 1.31,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 1.451,
+      "weights": {
+        "jaw_drive": 0.28800000000000003,
+        "V_Lip_Open": 0.25200000000000006,
+        "V_Open": 0.198,
+        "Mouth_Lips_Pull_DL": 0.162,
+        "Mouth_Lips_Pull_DR": 0.162
+      }
+    },
+    {
+      "time": 1.528,
+      "weights": {
+        "V_Tight_O": 0.408,
+        "jaw_drive": 0.136,
+        "V_Lip_Open": 0.136
+      }
+    },
+    {
+      "time": 1.709,
+      "weights": {
+        "jaw_drive": 0.06935999999999999,
+        "V_Lip_Open": 0.06935999999999999,
+        "V_Open": 0.08669999999999999
+      }
+    },
+    {
+      "time": 1.824,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 1.965,
+      "weights": {
+        "jaw_drive": 0.11968000000000001,
+        "V_Lip_Open": 0.10880000000000001,
+        "V_Open": 0.15232000000000004,
+        "Mouth_Lips_Pull_DL": 0.07616000000000002,
+        "Mouth_Lips_Pull_DR": 0.07616000000000002
+      }
+    },
+    {
+      "time": 2.095,
+      "weights": {
+        "jaw_drive": 0.06935999999999999,
+        "V_Lip_Open": 0.06935999999999999,
+        "V_Open": 0.08669999999999999
+      }
+    },
+    {
+      "time": 2.21,
+      "weights": {
+        "jaw_drive": 0.578,
+        "V_Lip_Open": 0.5202,
+        "V_Open": 0.4624,
+        "Mouth_Lips_Pull_DL": 0.2601,
+        "Mouth_Lips_Pull_DR": 0.2601,
+        "Mouth_Lips_Pull_UL": 0.17339999999999997,
+        "Mouth_Lips_Pull_UR": 0.17339999999999997
+      }
+    },
+    {
+      "time": 2.351,
+      "weights": {
+        "jaw_drive": 0.13464,
+        "V_Lip_Open": 0.12240000000000001,
+        "V_Open": 0.17136,
+        "Mouth_Lips_Pull_DL": 0.08568,
+        "Mouth_Lips_Pull_DR": 0.08568
+      }
+    },
+    {
+      "time": 2.468,
+      "weights": {
+        "jaw_drive": 0.102,
+        "V_Lip_Open": 0.102,
+        "V_Open": 0.1275
+      }
+    },
+    {
+      "time": 2.584,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 2.725,
+      "weights": {
+        "jaw_drive": 0.256,
+        "V_Lip_Open": 0.22400000000000003,
+        "V_Open": 0.17600000000000002,
+        "Mouth_Lips_Pull_DL": 0.144,
+        "Mouth_Lips_Pull_DR": 0.144
+      }
+    }
+  ],
+  "checks": [
+    {
+      "time": 0.158,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "DH-this"
+    },
+    {
+      "time": 0.286,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "IH-this"
+    },
+    {
+      "time": 0.569,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "TH-thing"
+    },
+    {
+      "time": 0.698,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "IH-thing"
+    },
+    {
+      "time": 1.252,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "TH-thicker"
+    },
+    {
+      "time": 1.38,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "IH-thicker"
+    },
+    {
+      "time": 1.766,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "DH-than"
+    },
+    {
+      "time": 2.01,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-than"
+    },
+    {
+      "time": 2.153,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "DH-that"
+    },
+    {
+      "time": 2.39,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "T-that"
+    },
+    {
+      "time": 2.526,
+      "type": "tongue",
+      "viseme": "v_th",
+      "label": "TH-thing"
+    },
+    {
+      "time": 2.654,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "IH-thing"
+    },
+    {
+      "time": 3.084,
+      "type": "end",
+      "label": "segment-end"
+    }
+  ]
+}

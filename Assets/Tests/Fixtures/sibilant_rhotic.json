@@ -1,0 +1,464 @@
+{
+  "type": "play",
+  "name": "sibilant_rhotic",
+  "text": "Sister runs errands every morning.",
+  "duration": 3.409,
+  "visemes": [
+    {
+      "t": 0.1,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 0.215,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 0.356,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 0.472,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.9
+    },
+    {
+      "t": 0.549,
+      "d": 0.141,
+      "v": "v_rr",
+      "w": 0.85
+    },
+    {
+      "t": 0.73,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.7
+    },
+    {
+      "t": 0.832,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 0.973,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.8
+    },
+    {
+      "t": 1.063,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 1.218,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 1.359,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.7
+    },
+    {
+      "t": 1.462,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 1.603,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.8
+    },
+    {
+      "t": 1.693,
+      "d": 0.077,
+      "v": "v_dd",
+      "w": 0.9
+    },
+    {
+      "t": 1.77,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 1.925,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 2.066,
+      "d": 0.115,
+      "v": "v_ff",
+      "w": 0.9
+    },
+    {
+      "t": 2.182,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.7
+    },
+    {
+      "t": 2.284,
+      "d": 0.141,
+      "v": "ee",
+      "w": 0.85
+    },
+    {
+      "t": 2.465,
+      "d": 0.09,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 2.555,
+      "d": 0.141,
+      "v": "aa",
+      "w": 0.85
+    },
+    {
+      "t": 2.696,
+      "d": 0.103,
+      "v": "v_rr",
+      "w": 0.7
+    },
+    {
+      "t": 2.798,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.8
+    },
+    {
+      "t": 2.888,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 3.029,
+      "d": 0.09,
+      "v": "v_kk",
+      "w": 0.8
+    }
+  ],
+  "blendshapes": [
+    {
+      "time": 0.1,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 0.215,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 0.356,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 0.472,
+      "weights": {
+        "jaw_drive": 0.198,
+        "V_Lip_Open": 0.18000000000000002,
+        "V_Open": 0.25200000000000006,
+        "Mouth_Lips_Pull_DL": 0.12600000000000003,
+        "Mouth_Lips_Pull_DR": 0.12600000000000003
+      }
+    },
+    {
+      "time": 0.549,
+      "weights": {
+        "V_Tight_O": 0.408,
+        "jaw_drive": 0.136,
+        "V_Lip_Open": 0.136
+      }
+    },
+    {
+      "time": 0.73,
+      "weights": {
+        "V_Tight_O": 0.33599999999999997,
+        "jaw_drive": 0.11199999999999999,
+        "V_Lip_Open": 0.11199999999999999
+      }
+    },
+    {
+      "time": 0.832,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 0.973,
+      "weights": {
+        "jaw_drive": 0.17600000000000002,
+        "V_Lip_Open": 0.16000000000000003,
+        "V_Open": 0.22400000000000003,
+        "Mouth_Lips_Pull_DL": 0.11200000000000002,
+        "Mouth_Lips_Pull_DR": 0.11200000000000002
+      }
+    },
+    {
+      "time": 1.063,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 1.218,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 1.359,
+      "weights": {
+        "V_Tight_O": 0.33599999999999997,
+        "jaw_drive": 0.11199999999999999,
+        "V_Lip_Open": 0.11199999999999999
+      }
+    },
+    {
+      "time": 1.462,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 1.603,
+      "weights": {
+        "jaw_drive": 0.17600000000000002,
+        "V_Lip_Open": 0.16000000000000003,
+        "V_Open": 0.22400000000000003,
+        "Mouth_Lips_Pull_DL": 0.11200000000000002,
+        "Mouth_Lips_Pull_DR": 0.11200000000000002
+      }
+    },
+    {
+      "time": 1.693,
+      "weights": {
+        "jaw_drive": 0.198,
+        "V_Lip_Open": 0.18000000000000002,
+        "V_Open": 0.25200000000000006,
+        "Mouth_Lips_Pull_DL": 0.12600000000000003,
+        "Mouth_Lips_Pull_DR": 0.12600000000000003
+      }
+    },
+    {
+      "time": 1.77,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 1.925,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 2.066,
+      "weights": {
+        "V_Dental_Lip": 0.9,
+        "jaw_drive": 0.07200000000000001
+      }
+    },
+    {
+      "time": 2.182,
+      "weights": {
+        "V_Tight_O": 0.33599999999999997,
+        "jaw_drive": 0.11199999999999999,
+        "V_Lip_Open": 0.11199999999999999
+      }
+    },
+    {
+      "time": 2.284,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    },
+    {
+      "time": 2.465,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 2.555,
+      "weights": {
+        "jaw_drive": 0.85,
+        "V_Lip_Open": 0.765,
+        "V_Open": 0.68,
+        "Mouth_Lips_Pull_DL": 0.3825,
+        "Mouth_Lips_Pull_DR": 0.3825,
+        "Mouth_Lips_Pull_UL": 0.255,
+        "Mouth_Lips_Pull_UR": 0.255
+      }
+    },
+    {
+      "time": 2.696,
+      "weights": {
+        "V_Tight_O": 0.33599999999999997,
+        "jaw_drive": 0.11199999999999999,
+        "V_Lip_Open": 0.11199999999999999
+      }
+    },
+    {
+      "time": 2.798,
+      "weights": {
+        "jaw_drive": 0.17600000000000002,
+        "V_Lip_Open": 0.16000000000000003,
+        "V_Open": 0.22400000000000003,
+        "Mouth_Lips_Pull_DL": 0.11200000000000002,
+        "Mouth_Lips_Pull_DR": 0.11200000000000002
+      }
+    },
+    {
+      "time": 2.888,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 3.029,
+      "weights": {
+        "jaw_drive": 0.256,
+        "V_Lip_Open": 0.22400000000000003,
+        "V_Open": 0.17600000000000002,
+        "Mouth_Lips_Pull_DL": 0.144,
+        "Mouth_Lips_Pull_DR": 0.144
+      }
+    }
+  ],
+  "checks": [
+    {
+      "time": 0.286,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "IH-sister"
+    },
+    {
+      "time": 0.51,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "T-sister"
+    },
+    {
+      "time": 0.903,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AH-runs"
+    },
+    {
+      "time": 1.018,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-runs"
+    },
+    {
+      "time": 1.289,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "EH-errands"
+    },
+    {
+      "time": 1.648,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-errands"
+    },
+    {
+      "time": 1.731,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "D-errands"
+    },
+    {
+      "time": 1.996,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "EH-every"
+    },
+    {
+      "time": 2.124,
+      "type": "labiodental",
+      "label": "V-every"
+    },
+    {
+      "time": 2.51,
+      "type": "bilabial",
+      "label": "M-morning"
+    },
+    {
+      "time": 2.625,
+      "type": "peak",
+      "viseme": "aa",
+      "label": "AO-morning"
+    },
+    {
+      "time": 2.843,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-morning"
+    },
+    {
+      "time": 3.389,
+      "type": "end",
+      "label": "segment-end"
+    }
+  ]
+}

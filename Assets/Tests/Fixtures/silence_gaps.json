@@ -1,0 +1,194 @@
+{
+  "type": "play",
+  "name": "silence_gaps",
+  "text": "Yes. No. Maybe.",
+  "duration": 2.411,
+  "visemes": [
+    {
+      "t": 0.1,
+      "d": 0.103,
+      "v": "ee",
+      "w": 0.7
+    },
+    {
+      "t": 0.203,
+      "d": 0.141,
+      "v": "ih",
+      "w": 0.85
+    },
+    {
+      "t": 0.344,
+      "d": 0.115,
+      "v": "v_ss",
+      "w": 0.85
+    },
+    {
+      "t": 0.899,
+      "d": 0.09,
+      "v": "v_dd",
+      "w": 0.8
+    },
+    {
+      "t": 0.989,
+      "d": 0.192,
+      "v": "oh",
+      "w": 0.85
+    },
+    {
+      "t": 1.621,
+      "d": 0.09,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 1.711,
+      "d": 0.192,
+      "v": "ee",
+      "w": 0.85
+    },
+    {
+      "t": 1.903,
+      "d": 0.077,
+      "v": "v_pp",
+      "w": 0.95
+    },
+    {
+      "t": 1.98,
+      "d": 0.141,
+      "v": "ee",
+      "w": 0.85
+    }
+  ],
+  "blendshapes": [
+    {
+      "time": 0.1,
+      "weights": {
+        "jaw_drive": 0.126,
+        "V_Lip_Open": 0.126,
+        "V_Tight": 0.63
+      }
+    },
+    {
+      "time": 0.203,
+      "weights": {
+        "jaw_drive": 0.3825,
+        "V_Lip_Open": 0.357,
+        "V_Wide": 0.765,
+        "Mouth_Lips_Pull_DL": 0.187,
+        "Mouth_Lips_Pull_DR": 0.187
+      }
+    },
+    {
+      "time": 0.344,
+      "weights": {
+        "V_Tight": 0.2975,
+        "jaw_drive": 0.068
+      }
+    },
+    {
+      "time": 0.899,
+      "weights": {
+        "jaw_drive": 0.17600000000000002,
+        "V_Lip_Open": 0.16000000000000003,
+        "V_Open": 0.22400000000000003,
+        "Mouth_Lips_Pull_DL": 0.11200000000000002,
+        "Mouth_Lips_Pull_DR": 0.11200000000000002
+      }
+    },
+    {
+      "time": 0.989,
+      "weights": {
+        "jaw_drive": 0.595,
+        "V_Lip_Open": 0.5525,
+        "V_Open": 0.49299999999999994,
+        "Mouth_Lips_Pull_DL": 0.2975,
+        "Mouth_Lips_Pull_DR": 0.2975,
+        "Mouth_Lips_Pull_UL": 0.187,
+        "Mouth_Lips_Pull_UR": 0.187
+      }
+    },
+    {
+      "time": 1.621,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 1.711,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    },
+    {
+      "time": 1.903,
+      "weights": {
+        "V_Explosive": 0.95,
+        "Mouth_Lips_Press_L": 0.38,
+        "Mouth_Lips_Press_R": 0.38
+      }
+    },
+    {
+      "time": 1.98,
+      "weights": {
+        "jaw_drive": 0.153,
+        "V_Lip_Open": 0.153,
+        "V_Tight": 0.765
+      }
+    }
+  ],
+  "checks": [
+    {
+      "time": 0.273,
+      "type": "peak",
+      "viseme": "ih",
+      "label": "EH-yes"
+    },
+    {
+      "time": 0.649,
+      "type": "silence",
+      "label": "pause"
+    },
+    {
+      "time": 0.944,
+      "type": "tongue",
+      "viseme": "v_dd",
+      "label": "N-no"
+    },
+    {
+      "time": 1.085,
+      "type": "peak",
+      "viseme": "oh",
+      "label": "OW-no"
+    },
+    {
+      "time": 1.371,
+      "type": "silence",
+      "label": "pause"
+    },
+    {
+      "time": 1.666,
+      "type": "bilabial",
+      "label": "M-maybe"
+    },
+    {
+      "time": 1.807,
+      "type": "peak",
+      "viseme": "ee",
+      "label": "EY-maybe"
+    },
+    {
+      "time": 1.942,
+      "type": "bilabial",
+      "label": "B-maybe"
+    },
+    {
+      "time": 2.391,
+      "type": "end",
+      "label": "segment-end"
+    }
+  ]
+}

@@ -16,6 +16,14 @@ public class AvatarController : MonoBehaviour
     [Tooltip("Lerp time constant in seconds. 0.03 matches the RN app viseme smoother.")]
     public float smoothingTau = 0.03f;
 
+    // Per-group overrides pushed by NativeBridgeReceiver from LipSyncTuning when a
+    // baked timeline plays: the baked curves already contain attack/release
+    // envelopes, so lip shapes want a much lighter tau than the generic one, while
+    // the jaw wants a heavier one (more mass). Negative = fall back to smoothingTau.
+    private float _lipTau = -1f;
+    private float _jawTau = -1f;
+    private readonly HashSet<string> _lipShapeNames = new();
+
     [Header("Jaw Bone (teeth only)")]
     [Tooltip("Main jaw bone — drives lower face skin.")]
     public string jawBoneName = "CC_Base_JawRoot";
@@ -132,11 +140,13 @@ public class AvatarController : MonoBehaviour
         // internal update AFTER script Update() and would silently overwrite any
         // weights written here.  The actual write happens in LateUpdate() below,
         // after the Animator has finished.
-        float alpha = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(smoothingTau, 0.001f));
+        float alphaGeneric = AlphaFor(smoothingTau);
+        float alphaLip     = _lipTau > 0f ? AlphaFor(_lipTau) : alphaGeneric;
 
         foreach (var kvp in _effectiveTarget)
         {
             if (!_shapeMap.ContainsKey(kvp.Key)) continue;
+            float alpha = _lipShapeNames.Contains(kvp.Key) ? alphaLip : alphaGeneric;
             _current[kvp.Key] = Mathf.Lerp(_current[kvp.Key], kvp.Value * 100f, alpha);
         }
 
@@ -145,7 +155,7 @@ public class AvatarController : MonoBehaviour
             if (_effectiveTarget.ContainsKey(name)) continue;
             float cur = _current[name];
             if (cur < 0.05f) { _current[name] = 0f; continue; }
-            _current[name] = Mathf.Lerp(cur, 0f, alpha);
+            _current[name] = Mathf.Lerp(cur, 0f, _lipShapeNames.Contains(name) ? alphaLip : alphaGeneric);
         }
     }
 
@@ -168,7 +178,7 @@ public class AvatarController : MonoBehaviour
         // etc.) so we skip the bone write entirely.
         if (maxJawAngle <= 0f || _jawBone == null) return;
 
-        float alpha = 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(smoothingTau, 0.001f));
+        float alpha = AlphaFor(_jawTau > 0f ? _jawTau : smoothingTau);
 
         float jawTarget = _lipTarget.GetValueOrDefault("jaw_drive", 0f);
         _currentJawWeight = Mathf.Lerp(_currentJawWeight, jawTarget, alpha);
@@ -192,12 +202,40 @@ public class AvatarController : MonoBehaviour
 
     // ── Public API ────────────────────────────────────────────────────────────
 
+    float AlphaFor(float tau) => 1f - Mathf.Exp(-Time.deltaTime / Mathf.Max(tau, 0.001f));
+
     /// <summary>Lipsync channel — visemes + jaw_drive. Called by BlendshapeReceiver.</summary>
     public void SetTargetWeights(Dictionary<string, float> weights)
     {
         _lipTarget.Clear();
         foreach (var kvp in weights)
+        {
             _lipTarget[kvp.Key] = Mathf.Clamp01(kvp.Value);
+            _lipShapeNames.Add(kvp.Key); // shapes seen on the lip channel keep lip tau while decaying
+        }
+    }
+
+    /// <summary>Pushes per-group smoothing taus from the co-articulation tuning asset.
+    /// Called by NativeBridgeReceiver when a baked timeline starts.</summary>
+    public void SetLipSmoothing(LipSyncTuning tuning)
+    {
+        _lipTau = tuning.lipSmoothingTau;
+        _jawTau = tuning.jawSmoothingTau;
+    }
+
+    /// <summary>Snaps the smoothed lip-channel values straight to their current
+    /// targets. Called once at baked-playback start so an utterance-initial closure
+    /// (e.g. the M of "Maybe") doesn't lose its peak to smoothing ramp-up from 0 —
+    /// the envelope's own attack already shaped the curve.</summary>
+    public void SnapLipTargets()
+    {
+        foreach (var kvp in _lipTarget)
+        {
+            if (_shapeMap.ContainsKey(kvp.Key))
+                _current[kvp.Key] = kvp.Value * 100f;
+            else if (kvp.Key == "jaw_drive")
+                _currentJawWeight = kvp.Value;
+        }
     }
 
     /// <summary>Clears the lipsync channel only — idle animation (blink/brow/smile)
@@ -205,6 +243,15 @@ public class AvatarController : MonoBehaviour
     public void ResetAll()
     {
         _lipTarget.Clear();
+    }
+
+    /// <summary>Current smoothed weight (0–1) for a blendshape name, or the smoothed
+    /// jaw drive when "jaw_drive" is requested. Diagnostic accessor for the lip-sync
+    /// test harness (BlendshapeRecorder).</summary>
+    public float GetCurrentWeight(string name)
+    {
+        if (name == "jaw_drive") return _currentJawWeight;
+        return _current.TryGetValue(name, out var v) ? v / 100f : 0f;
     }
 
     /// <summary>Idle animation channel — blink/brow/smile. Called every frame by

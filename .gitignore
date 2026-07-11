@@ -109,3 +109,7 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# Lip-sync test harness output (large: CSVs + screenshots)
+TestResults/
+.DS_Store
