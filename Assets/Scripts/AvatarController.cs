@@ -36,6 +36,15 @@ public class AvatarController : MonoBehaviour
     [Tooltip("Flip this if the jaw opens upward instead of downward.")]
     public bool  jawFlipDirection = false;
 
+    [Header("Merged Open Mouth morph (CC5 'Mouth Open as Morph')")]
+    [Tooltip("Blendshape that opens jaw+teeth+tongue as one baked morph. When this shape " +
+             "exists on the mesh, jaw_drive drives IT instead of the jaw bone (set maxJawAngle=0).")]
+    public string mergedOpenMouthShape = "Merged_Open_Mouth";
+    [Tooltip("jaw_drive (0-1) maps to at most this morph weight. Real speech rarely fully " +
+             "opens the jaw; ~0.6-0.7 reads natural, 1.0 looks like a yawn.")]
+    [Range(0f, 1f)] public float mergedOpenMouthScale = 0.7f;
+    private bool _hasMergedOpen;
+
     private Transform  _jawBone;
     private Quaternion _jawRest;
     private Transform  _lowerTeethBone;
@@ -69,6 +78,12 @@ public class AvatarController : MonoBehaviour
     {
         BuildShapeMap();
         FindJawBone();
+
+        // CC5 "Mouth Open as Morph" bakes jaw+teeth+tongue opening into one blendshape.
+        // When present we drive it from jaw_drive instead of rotating the (skew-prone,
+        // corrective-less) jaw bone. Smoothed on the lip channel like other lip shapes.
+        _hasMergedOpen = _shapeMap.ContainsKey(mergedOpenMouthShape);
+        if (_hasMergedOpen) _lipShapeNames.Add(mergedOpenMouthShape);
     }
 
     void BuildShapeMap()
@@ -134,6 +149,11 @@ public class AvatarController : MonoBehaviour
         _effectiveTarget.Clear();
         foreach (var kvp in _lipTarget)  _effectiveTarget[kvp.Key] = kvp.Value;
         foreach (var kvp in _idleTarget) _effectiveTarget[kvp.Key] = kvp.Value;
+
+        // Route jaw_drive onto the merged open-mouth morph (CC5 export). jaw_drive itself
+        // is not a blendshape, so without this the mouth would only part its lips.
+        if (_hasMergedOpen && _effectiveTarget.TryGetValue("jaw_drive", out var jawOpen))
+            _effectiveTarget[mergedOpenMouthShape] = Mathf.Clamp01(jawOpen * mergedOpenMouthScale);
 
         // Advance the smoothed _current values toward _effectiveTarget each frame.
         // We do NOT call SetBlendShapeWeight here — the Animator runs its own
@@ -236,6 +256,9 @@ public class AvatarController : MonoBehaviour
             else if (kvp.Key == "jaw_drive")
                 _currentJawWeight = kvp.Value;
         }
+        // Keep the merged open-mouth morph in lock-step with the jaw_drive snap.
+        if (_hasMergedOpen && _lipTarget.TryGetValue("jaw_drive", out var jd))
+            _current[mergedOpenMouthShape] = Mathf.Clamp01(jd * mergedOpenMouthScale) * 100f;
     }
 
     /// <summary>Clears the lipsync channel only — idle animation (blink/brow/smile)

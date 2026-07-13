@@ -126,28 +126,62 @@ public class LipSyncTestDriver : MonoBehaviour
         yield return Finish(request);
     }
 
-    /// <summary>Spawns a dedicated close-up camera on the head so check-time
-    /// screenshots show the mouth region clearly. A separate camera with a higher
-    /// depth is used because the Reallusion preview rig owns the scene's Main
-    /// Camera and can reposition it. Play-mode only — never saved into the scene.</summary>
+    /// <summary>Spawns a dedicated close-up camera for check-time screenshots.
+    ///
+    /// It MUST view the mouth straight on. An open mouth has depth, so a few degrees
+    /// off the face-normal makes the cavity read as a large sideways shift — this was
+    /// the entire "mouth is offset to one side" artifact (2026-07-13 investigation);
+    /// the rig is fine, morph L/R asymmetry is under 6%. Three things keep it honest:
+    ///   1) Orthographic — removes the perspective foreshortening that exaggerated the
+    ///      cavity depth into an apparent lateral offset.
+    ///   2) Placed ON the mesh symmetry plane (root-local x = 0) and oriented with
+    ///      LookRotation (zero yaw/roll). LookAt(head) is deliberately NOT used: it
+    ///      re-introduces yaw whenever the head's x differs from the camera's.
+    ///   3) Parented to the head bone, so IdleAnimator's head yaw/tilt/roll/breathing
+    ///      carries the camera with it and the view stays frontal every frame.
+    /// A separate camera with a higher depth is used because the Reallusion preview
+    /// rig owns the scene's Main Camera. Play-mode only — never saved into the scene.</summary>
     static void FrameFaceCamera(AvatarController avatar)
     {
-        var head = avatar.FindBone("CC_Base_Head", out _);
+        var head = avatar.FindBone("CC_Base_Head", out var headRest);
         if (head == null)
         {
             Debug.LogWarning("[LipSyncTestDriver] CC_Base_Head not found — keeping scene camera.");
             return;
         }
 
+        // Momentarily align the head to its rest pose so the root's forward axis IS
+        // the true face normal while we bake the camera's frontal offset. Parenting
+        // then preserves that framing once idle motion resumes.
+        var savedHead = head.localRotation;
+        head.localRotation = headRest;
+
+        var t = avatar.transform;
+        // The CC head bone sits near the jaw hinge — BELOW the mouth — so aiming off it
+        // frames the neck. Use a mouth-height bone instead (teeth, then jaw root, then
+        // head as a last resort).
+        Transform mouthBone = avatar.FindBone("CC_Base_Teeth02", out _);
+        if (mouthBone == null) mouthBone = avatar.FindBone("CC_Base_JawRoot", out _);
+        if (mouthBone == null) mouthBone = head;
+        // Position in the root's frame; forcing x -> 0 lands the camera dead on the
+        // symmetry plane. Tiny +y lift keeps the upper lip and nose base in frame.
+        Vector3 ml = t.InverseTransformPoint(mouthBone.position);
+        Vector3 camLocal = new Vector3(0f, ml.y + 0.005f, ml.z + 0.55f);
+
         var go  = new GameObject("LipSyncTestCam");
         var cam = go.AddComponent<Camera>();
-        cam.depth = 100f; // render on top of the preview-scene camera
-        cam.nearClipPlane = 0.05f;
-        cam.fieldOfView = 22f;
+        cam.depth = 100f;             // render on top of the preview-scene camera
+        cam.nearClipPlane = 0.01f;
+        cam.orthographic = true;      // no perspective => no depth-driven mouth skew
+        cam.orthographicSize = 0.06f; // frames roughly nose-to-chin, mouth centred
 
-        Vector3 face = head.position + Vector3.up * 0.04f;
-        go.transform.position = face + avatar.transform.forward * 0.55f;
-        go.transform.LookAt(face);
+        go.transform.position = t.TransformPoint(camLocal);
+        go.transform.rotation = Quaternion.LookRotation(-t.forward, t.up); // zero yaw/roll
+
+        // Rigidly track the head bone so idle head motion can't tilt the view off-axis.
+        go.transform.SetParent(head, worldPositionStays: true);
+
+        head.localRotation = savedHead; // restore; the camera now follows via parenting
     }
 
     static void WriteSummary(string runDir, List<LipSyncResult> results, string error)

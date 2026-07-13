@@ -78,8 +78,10 @@ public static class VisemeMap
         },
         ["ee"] = new()
         {
-            { "jaw_drive", 0.18f }, { "V_Lip_Open", 0.18f }, { "V_Tight", 0.90f },
-            { "V_Tongue_up", 0.15f },
+            // Front vowel: lips SPREAD (smile-wide), not tightened — per CC4/AccuLips,
+            // front vowels drive V_Wide. Was V_Tight (narrow), which read too pursed.
+            { "jaw_drive", 0.20f }, { "V_Lip_Open", 0.15f }, { "V_Wide", 0.90f },
+            { "V_Open", 0.20f }, { "V_Tongue_up", 0.15f },
         },
         ["oh"] = new()
         {

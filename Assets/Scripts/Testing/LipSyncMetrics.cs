@@ -23,7 +23,7 @@ public static class LipSyncMetrics
     static readonly Dictionary<string, string> PrimaryShape = new()
     {
         { "aa", "V_Open" }, { "oh", "V_Open" }, { "ih", "V_Wide" },
-        { "ee", "V_Tight" }, { "ou", "V_Tight_O" },
+        { "ee", "V_Wide" }, { "ou", "V_Tight_O" },
         { "v_th", "V_Tongue_Out" }, { "v_dd", "V_Tongue_up" },
         { "v_nn", "V_Tongue_up" }, { "v_kk", "V_Tongue_Raise" },
         { "v_rr", "V_Tight_O" },
