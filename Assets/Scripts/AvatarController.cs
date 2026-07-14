@@ -45,6 +45,14 @@ public class AvatarController : MonoBehaviour
     [Range(0f, 1f)] public float mergedOpenMouthScale = 0.7f;
     private bool _hasMergedOpen;
 
+    // Each facial sub-mesh carries its OWN copy of the merged open-mouth morph, but the
+    // meshes extracted from the body (stubble/beard, brows, eyelashes) prefix the name:
+    // StubbleMerged_Open_Mouth, Brows_HairMerged_Open_Mouth, Eyelash_LowMerged_Open_Mouth…
+    // Driving only the exact "Merged_Open_Mouth" opened the body while the beard stayed
+    // put and visibly detached. Collect every "*Merged_Open_Mouth" variant and drive them
+    // together — each name is already in _shapeMap, so they ride the normal smoothing path.
+    private readonly List<string> _mergedOpenNames = new();
+
     private Transform  _jawBone;
     private Quaternion _jawRest;
     private Transform  _lowerTeethBone;
@@ -82,8 +90,14 @@ public class AvatarController : MonoBehaviour
         // CC5 "Mouth Open as Morph" bakes jaw+teeth+tongue opening into one blendshape.
         // When present we drive it from jaw_drive instead of rotating the (skew-prone,
         // corrective-less) jaw bone. Smoothed on the lip channel like other lip shapes.
-        _hasMergedOpen = _shapeMap.ContainsKey(mergedOpenMouthShape);
-        if (_hasMergedOpen) _lipShapeNames.Add(mergedOpenMouthShape);
+        // Gather the body's "Merged_Open_Mouth" plus every prefixed variant on the
+        // extracted meshes (beard, brows, eyelashes) so they all open together. Each is
+        // already keyed in _shapeMap by BuildShapeMap, so the normal Update/LateUpdate
+        // smoothing loop writes them to their own renderer — no separate write path.
+        foreach (var name in _shapeMap.Keys)
+            if (name.EndsWith(mergedOpenMouthShape)) _mergedOpenNames.Add(name);
+        _hasMergedOpen = _mergedOpenNames.Count > 0;
+        foreach (var name in _mergedOpenNames) _lipShapeNames.Add(name);
     }
 
     void BuildShapeMap()
@@ -153,7 +167,11 @@ public class AvatarController : MonoBehaviour
         // Route jaw_drive onto the merged open-mouth morph (CC5 export). jaw_drive itself
         // is not a blendshape, so without this the mouth would only part its lips.
         if (_hasMergedOpen && _effectiveTarget.TryGetValue("jaw_drive", out var jawOpen))
-            _effectiveTarget[mergedOpenMouthShape] = Mathf.Clamp01(jawOpen * mergedOpenMouthScale);
+        {
+            float mergedW = Mathf.Clamp01(jawOpen * mergedOpenMouthScale);
+            for (int i = 0; i < _mergedOpenNames.Count; i++)
+                _effectiveTarget[_mergedOpenNames[i]] = mergedW;
+        }
 
         // Advance the smoothed _current values toward _effectiveTarget each frame.
         // We do NOT call SetBlendShapeWeight here — the Animator runs its own
@@ -192,6 +210,10 @@ public class AvatarController : MonoBehaviour
             foreach (var t in _shapeMap[name])
                 t.renderer.SetBlendShapeWeight(t.index, val);
         }
+
+        // Facial-hair (beard), brows and eyelashes follow the chin because each of
+        // their own "*Merged_Open_Mouth" variants is driven above through _shapeMap —
+        // no separate overlay pass needed; that was a weaker Jaw_Open approximation.
 
         // ── Jaw bone (optional — off by default for HD CC4) ──────────────────────
         // When maxJawAngle is 0 the jaw is driven entirely by blendshapes (V_Open
@@ -256,9 +278,14 @@ public class AvatarController : MonoBehaviour
             else if (kvp.Key == "jaw_drive")
                 _currentJawWeight = kvp.Value;
         }
-        // Keep the merged open-mouth morph in lock-step with the jaw_drive snap.
+        // Keep every merged open-mouth variant (body + beard + brows + eyelashes) in
+        // lock-step with the jaw_drive snap so the beard opens with the body from frame 1.
         if (_hasMergedOpen && _lipTarget.TryGetValue("jaw_drive", out var jd))
-            _current[mergedOpenMouthShape] = Mathf.Clamp01(jd * mergedOpenMouthScale) * 100f;
+        {
+            float mergedW = Mathf.Clamp01(jd * mergedOpenMouthScale) * 100f;
+            for (int i = 0; i < _mergedOpenNames.Count; i++)
+                _current[_mergedOpenNames[i]] = mergedW;
+        }
     }
 
     /// <summary>Clears the lipsync channel only — idle animation (blink/brow/smile)
