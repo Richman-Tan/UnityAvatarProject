@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 35733646}
   - component: {fileID: 35733645}
   m_Layer: 0
-  m_Name: AaronImproved
+  m_Name: HD_Aaron
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6754,7 +6754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4210396175393435998}
   m_Layer: 0
-  m_Name: HD_Aaron
+  m_Name: HD_Aaron_Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
