@@ -113,3 +113,4 @@ InitTestScene*.unity*
 # Lip-sync test harness output (large: CSVs + screenshots)
 TestResults/
 .DS_Store
+DerivedData-iPhone/
