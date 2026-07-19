@@ -10,8 +10,10 @@ using UnityEngine;
 /// playback clock — driving a 60fps loop across the native module bridge
 /// per-call would be far more jittery/expensive than a real WebSocket.
 ///
-/// Called from native (Swift) via:
-///   UnityFramework.sendMessageToGOWithName("HD_Aaron", "ReceiveBridgeMessage", json)
+/// Reached from native (Swift) via AvatarRouter — the bridge sends to
+///   UnityFramework.sendMessageToGOWithName("AvatarRouter", "ReceiveBridgeMessage", json)
+/// and <see cref="AvatarRouter"/> forwards play/stop to the ACTIVE character's
+/// receiver with a direct C# call.
 ///
 /// Message protocol:
 ///   { "type": "play", "startTimeUnityTime": 12.34, "duration": 3.2,
@@ -45,8 +47,17 @@ public class NativeBridgeReceiver : MonoBehaviour
 
     void Start()
     {
-        // Walk up to the root AvatarController, same rationale as BlendshapeReceiver:
-        // this component may sit on a child with an incomplete controller scope.
+        ResolveAvatar();
+    }
+
+    // Walk up to the root AvatarController, same rationale as BlendshapeReceiver:
+    // this component may sit on a child with an incomplete controller scope.
+    // Lazy (not only Start): AvatarRouter direct-calls ReceiveBridgeMessage the
+    // moment it activates a character, which can be before Start has run on a
+    // root that shipped disabled in the baked scene.
+    void ResolveAvatar()
+    {
+        if (_avatar != null) return;
         _avatar = GetComponentInParent<AvatarController>();
         if (_avatar == null) _avatar = GetComponent<AvatarController>();
     }
@@ -54,6 +65,13 @@ public class NativeBridgeReceiver : MonoBehaviour
     /// <summary>Entry point invoked by the native bridge via UnitySendMessage.</summary>
     public void ReceiveBridgeMessage(string json)
     {
+        ResolveAvatar();
+        if (_avatar == null)
+        {
+            Debug.LogWarning("[NativeBridgeReceiver] No AvatarController found — dropping message.");
+            return;
+        }
+
         string type = CC4MessageProtocol.ParseStringField(json, "type");
         switch (type)
         {

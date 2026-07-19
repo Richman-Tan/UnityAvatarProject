@@ -114,3 +114,6 @@ InitTestScene*.unity*
 TestResults/
 .DS_Store
 DerivedData-iPhone/
+
+# Editor diagnostic captures (session screenshots, not assets)
+/Captures/
