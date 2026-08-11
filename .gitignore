@@ -117,3 +117,17 @@ DerivedData-iPhone/
 
 # Editor diagnostic captures (session screenshots, not assets)
 /Captures/
+
+# Android UaaL export — build intermediates (NOT the committed artifact parts).
+# Il2CppOutputProject is the IL2CPP source/toolchain tree (~850M): libil2cpp.so
+# is prebuilt into jniLibs instead, and unityLibrary/build.gradle carries a
+# committed-artifact guard (applied by UaalExportBuildAndroid.cs) that skips
+# the IL2CPP task when this tree is absent.
+android-export/unityLibrary/src/main/Il2CppOutputProject/
+android-export/unityLibrary/src/main/jniStaticLibs/
+android-export/unityLibrary/symbols/
+android-export/unityLibrary/build/
+android-export/*_BurstDebugInformation_DoNotShip/
+android-export/build/
+android-export/.gradle/
+android-export/local.properties

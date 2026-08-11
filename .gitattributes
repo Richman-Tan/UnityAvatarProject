@@ -23,3 +23,9 @@
 # UnityFramework binary itself), so a path-based catch-all is simpler and more
 # robust than enumerating extensions.
 UnityLibrary/** filter=lfs diff=lfs merge=lfs -text
+
+# Prebuilt UaaL Android artifact — same policy as the iOS UnityLibrary/ above:
+# entirely build output, many extensionless Data files, so path catch-alls.
+android-export/unityLibrary/src/main/assets/** filter=lfs diff=lfs merge=lfs -text
+android-export/unityLibrary/src/main/jniLibs/** filter=lfs diff=lfs merge=lfs -text
+android-export/unityLibrary/libs/** filter=lfs diff=lfs merge=lfs -text

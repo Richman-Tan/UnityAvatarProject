@@ -25,9 +25,9 @@
       "hash": "ea014c9ae534d56111962d96f89f8a046e302dc9"
     },
     "com.soupday.cc3_unity_tools": {
-      "version": "file:/Users/richmantan/Downloads/CCiC-Unity-Tools-2.2.6",
+      "version": "file:com.soupday.cc3_unity_tools",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.0"
       }
