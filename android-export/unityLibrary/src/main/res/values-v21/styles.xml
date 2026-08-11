@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--Avoid using the deprecated .Fullscreen extension, as it may interfere with Unity’s initialization of StatusBars insets visibility.-->
+  <style name="BaseUnityTheme" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

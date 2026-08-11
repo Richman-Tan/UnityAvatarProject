@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="UnityThemeSelector" parent="BaseUnityTheme">
+    <item name="android:windowBackground">@android:color/black</item>
+  </style>
+  <!--Avoid using the deprecated .Fullscreen extension, as it may interfere with Unity’s initialization of StatusBars insets visibility.-->
+  <style name="BaseUnityTheme" parent="android:Theme.Holo.Light.NoActionBar" />
+  <style name="UnityThemeSelector.Translucent" parent="@style/UnityThemeSelector">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+  </style>
+  <!--Avoid using the deprecated .Fullscreen extension, as it may interfere with Unity’s initialization of StatusBars insets visibility.-->
+</resources>
