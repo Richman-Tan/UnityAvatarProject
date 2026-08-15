@@ -78,6 +78,36 @@ public static class WebPreviewShot
         return "wrote " + path + " (vfov=" + vfov + " back=" + stepBack + " drop=" + drop + " arm=" + armDown + " posed=" + restore.Count + ")";
     }
 
+    /// <summary>Reports whether the bone we rotate is the one the mesh is skinned to.</summary>
+    public static string Diagnose(string rootName, string boneName)
+    {
+        var root = GameObject.Find(rootName);
+        if (root == null) return rootName + " not found";
+        var sb = new System.Text.StringBuilder();
+        sb.Append("playing=" + Application.isPlaying);
+        var anim = root.GetComponent<Animator>();
+        sb.Append(" animator=" + (anim == null ? "none"
+            : ("enabled=" + anim.enabled + " ctrl=" + (anim.runtimeAnimatorController == null ? "NULL" : "set")
+               + " optimized=" + (anim.avatar != null && anim.isOptimizable) + " hasTransformHierarchy=" + anim.hasTransformHierarchy)));
+
+        var bone = FindDeep(root.transform, boneName);
+        sb.Append(" || bone=" + (bone == null ? "NOT FOUND" : boneName + " parent=" + bone.parent.name));
+
+        var smrs = root.GetComponentsInChildren<SkinnedMeshRenderer>(true);
+        sb.Append(" || smrCount=" + smrs.Length);
+        int matched = 0;
+        for (int i = 0; i < smrs.Length; i++)
+        {
+            var bones = smrs[i].bones;
+            for (int b = 0; b < bones.Length; b++)
+            {
+                if (bone != null && bones[b] == bone) { matched++; break; }
+            }
+        }
+        sb.Append(" boundToRotatedBone=" + matched + "/" + smrs.Length);
+        return sb.ToString();
+    }
+
     static void PoseArm(Transform root, string upperName, string lowerName, float degrees,
         System.Collections.Generic.List<Transform> restore,
         System.Collections.Generic.List<Quaternion> restoreRot)

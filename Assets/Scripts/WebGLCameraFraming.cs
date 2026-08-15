@@ -41,41 +41,69 @@ public static class WebGLCameraFraming
             cam.transform.position -= cam.transform.forward * StepBackMeters + Vector3.up * DropMeters;
         }
 
+        // A PLAIN GameObject on purpose: HideFlags.HideAndDontSave combined
+        // with DontDestroyOnLoad stopped the component ticking past its first
+        // frame in the build (it posed once, then the pose was never
+        // re-applied). Verified in play mode with the real component.
         var poser = new GameObject("WebArmPoser");
-        poser.hideFlags = HideFlags.HideAndDontSave;
         poser.AddComponent<WebArmPoser>();
-        Object.DontDestroyOnLoad(poser);
         Debug.Log("[WebGLCameraFraming] web framing applied (vFOV " + VerticalFov + ")");
     }
 #endif
 }
 
-/// <summary>Swings T-pose arms down on each character as it becomes active.</summary>
+/// <summary>
+/// Swings T-pose arms down on each character as it becomes active.
+/// Compiled for WebGL and for the EDITOR (so play mode can exercise the real
+/// component — the WebGL-only Apply() above is the only thing that ever adds
+/// it, so iOS/Android builds neither compile nor run any of this).
+/// </summary>
 public class WebArmPoser : MonoBehaviour
 {
-#if UNITY_WEBGL && !UNITY_EDITOR
+#if UNITY_WEBGL || UNITY_EDITOR
     const float ArmDownDegrees = 72f;
     static readonly string[] Roots = { "HD_Aaron", "HD_Ariana" };
 
-    readonly HashSet<Transform> _posed = new HashSet<Transform>();
+    // The characters carry an enabled Animator with no controller, which
+    // rewrites the bind pose every frame — a one-shot bone write is reverted
+    // on the next tick (it survives in edit mode only because the Animator
+    // doesn't run there). So the target LOCAL rotation is computed once and
+    // re-applied in LateUpdate, after everything else has written: local, so
+    // the arms still ride the torso when IdleAnimator breathes.
+    readonly Dictionary<Transform, Quaternion> _target = new Dictionary<Transform, Quaternion>();
+    readonly HashSet<Transform> _seen = new HashSet<Transform>();
     int _tick;
 
     void LateUpdate()
     {
         // GameObject.Find only sees ACTIVE objects, so a character switch is
-        // picked up automatically. Scanning a few times a second is plenty.
-        if (++_tick % 15 != 0) return;
-        for (int i = 0; i < Roots.Length; i++)
+        // picked up automatically. Scan EVERY frame until the first character
+        // is posed — early frames crawl while the CC shaders compile, so a
+        // every-15-frames scan left the T-pose on screen for minutes — then
+        // back off, since a switch only needs picking up a few times a second.
+        _tick++;
+        if (_target.Count == 0 || _tick % 15 == 0)
         {
-            var root = GameObject.Find(Roots[i]);
-            if (root == null || _posed.Contains(root.transform)) continue;
-            PoseArm(root.transform, "CC_Base_L_Upperarm", "CC_Base_L_Forearm");
-            PoseArm(root.transform, "CC_Base_R_Upperarm", "CC_Base_R_Forearm");
-            _posed.Add(root.transform);
+            for (int i = 0; i < Roots.Length; i++)
+            {
+                var root = GameObject.Find(Roots[i]);
+                if (root == null || _seen.Contains(root.transform)) continue;
+                _seen.Add(root.transform);
+                var anim = root.GetComponent<Animator>();
+                if (anim != null && anim.runtimeAnimatorController == null) anim.enabled = false;
+                Capture(root.transform, "CC_Base_L_Upperarm", "CC_Base_L_Forearm");
+                Capture(root.transform, "CC_Base_R_Upperarm", "CC_Base_R_Forearm");
+                Debug.Log("[WebArmPoser] " + Roots[i] + " arms posed=" + _target.Count);
+            }
+        }
+
+        foreach (var kv in _target)
+        {
+            if (kv.Key != null) kv.Key.localRotation = kv.Value;
         }
     }
 
-    void PoseArm(Transform root, string upperName, string lowerName)
+    void Capture(Transform root, string upperName, string lowerName)
     {
         var upper = FindDeep(root, upperName);
         if (upper == null) return;
@@ -83,7 +111,10 @@ public class WebArmPoser : MonoBehaviour
         Vector3 dir = lower != null ? (lower.position - upper.position).normalized : upper.right;
         // T-pose arms point along ±X; swing them down about the world Z axis.
         float sign = dir.x >= 0f ? -1f : 1f;
+        var before = upper.localRotation;
         upper.rotation = Quaternion.AngleAxis(sign * ArmDownDegrees, Vector3.forward) * upper.rotation;
+        _target[upper] = upper.localRotation;
+        upper.localRotation = before; // LateUpdate below applies the target
     }
 
     static Transform FindDeep(Transform t, string name)
