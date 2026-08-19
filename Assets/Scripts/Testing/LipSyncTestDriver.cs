@@ -30,6 +30,10 @@ public class LipSyncTestDriver : MonoBehaviour
         public string runId;
         public string fixtures; // "all" or comma-separated names
         public bool   exitPlayModeWhenDone = true;
+        // Per-check PNGs are documentation, not measurement. They stall the render
+        // pipeline hard enough to starve the per-frame sampler — see the comment at
+        // the capture site. Turn off for measurement-only runs.
+        public bool   captureScreenshots = true;
     }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -40,13 +44,28 @@ public class LipSyncTestDriver : MonoBehaviour
         // mode the moment no editor window has focus — automated runs would stall
         // at frame 1. Runtime-only override; never touches PlayerSettings.
         Application.runInBackground = true;
+        // Pin the simulation to a fixed 60 Hz step, independent of how fast the
+        // editor can actually render. BlendshapeRecorder samples once per FRAME, so
+        // without this the metric resolution is hostage to render cost: when the
+        // avatar scene gained post-processing, MSAA, SMAA, shadows and SSAO — and
+        // this harness renders a SECOND close-up camera on top — play mode fell to
+        // ~6fps, the sampler dropped from 190 samples to 18, and viseme peaks
+        // 50-80ms wide started falling between samples and reporting as 0.00.
+        // That looked exactly like a lip-sync regression while nothing about the
+        // lip-sync had changed. Time.captureFramerate makes each frame advance
+        // Time.time by exactly 1/60 regardless of wall-clock, so the measurement is
+        // deterministic and immune to future rendering changes.
+        Time.captureFramerate = 60;
         var go = new GameObject("LipSyncTestDriver");
         go.AddComponent<LipSyncTestDriver>();
     }
 
+    private RunRequest _request;
+
     IEnumerator Start()
     {
         var request = JsonUtility.FromJson<RunRequest>(File.ReadAllText(RequestPath));
+        _request = request;
         File.Delete(RequestPath); // consume so a stray play never re-runs it
 
         string runDir = Path.Combine(ResultsRoot, request.runId);
@@ -100,9 +119,21 @@ public class LipSyncTestDriver : MonoBehaviour
                 while (nextCheck < sortedChecks.Count && sortedChecks[nextCheck].time <= t)
                 {
                     var c = sortedChecks[nextCheck];
-                    string shot = Path.Combine(runDir,
-                        $"{fixture.name}_{Sanitize(c.label)}_{(int)(c.time * 1000)}ms.png");
-                    ScreenCapture.CaptureScreenshot(shot);
+                    // ScreenCapture.CaptureScreenshot stalls the render pipeline, and
+                    // the cost scales with what the camera is doing. Once the avatar
+                    // scene gained post-processing, MSAA and SMAA it became expensive
+                    // enough to drag play mode down to ~6fps — and the recorder samples
+                    // once per FRAME, so the metric windows started missing viseme peaks
+                    // entirely and reported them as 0.00. That reads as a lip-sync
+                    // regression when nothing about the lip-sync changed. Captures are
+                    // documentation, not measurement, so they can be turned off for
+                    // runs that only need the numbers.
+                    if (_request.captureScreenshots)
+                    {
+                        string shot = Path.Combine(runDir,
+                            $"{fixture.name}_{Sanitize(c.label)}_{(int)(c.time * 1000)}ms.png");
+                        ScreenCapture.CaptureScreenshot(shot);
+                    }
                     nextCheck++;
                 }
                 yield return null;
@@ -204,6 +235,7 @@ public class LipSyncTestDriver : MonoBehaviour
 
     IEnumerator Finish(RunRequest request)
     {
+        Time.captureFramerate = 0;   // release the fixed step
         yield return null;
 #if UNITY_EDITOR
         if (request.exitPlayModeWhenDone)

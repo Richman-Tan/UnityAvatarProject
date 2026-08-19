@@ -17,7 +17,14 @@ public static class LipSyncTestRunner
     [MenuItem("Tools/LipSync/Run All Fixtures")]
     public static void RunAll() => Run("all");
 
-    public static string Run(string fixtures)
+    /// <summary>Measurement-only run: skips the per-check PNGs, which stall the
+    /// render pipeline enough to starve the per-frame sampler.</summary>
+    [MenuItem("Tools/LipSync/Run All Fixtures (no captures)")]
+    public static void RunAllNoCaptures() => Run("all", false);
+
+    public static string Run(string fixtures) => Run(fixtures, true);
+
+    public static string Run(string fixtures, bool captureScreenshots)
     {
         string runId = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
         var request = new LipSyncTestDriver.RunRequest
@@ -25,6 +32,7 @@ public static class LipSyncTestRunner
             runId = runId,
             fixtures = fixtures,
             exitPlayModeWhenDone = true,
+            captureScreenshots = captureScreenshots,
         };
         Directory.CreateDirectory(Path.GetDirectoryName(LipSyncTestDriver.RequestPath));
         File.WriteAllText(LipSyncTestDriver.RequestPath, JsonUtility.ToJson(request));
