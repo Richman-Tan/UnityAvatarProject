@@ -17,9 +17,11 @@ using UnityEngine;
 ///
 /// Message protocol:
 ///   { "type": "play", "startTimeUnityTime": 12.34, "duration": 3.2,
+///     "emotion":     "warm",                                          // sentence sentiment
 ///     "visemes":     [{"t":0.1,"d":0.08,"v":"v_pp","w":0.95}, ...],   // preferred
 ///     "blendshapes": [{"time": 0.0, "weights": {...}}, ...] }         // legacy
 ///   { "type": "stop" }
+///   { "type": "setState", "state": "listening" }   // idle|listening|speaking|thinking|empathy|waiting
 ///
 /// When a `visemes` array is present, the raw 14-key timeline is baked ONCE
 /// through <see cref="CoarticulationEngine"/> (dominance-envelope co-articulation,
@@ -37,6 +39,7 @@ public class NativeBridgeReceiver : MonoBehaviour
     public bool logFrames = false;
 
     private AvatarController _avatar;
+    private IdleAnimator _idle;
     private List<(float time, Dictionary<string, float> weights)> _keyframes;
     private CoarticulationEngine.BakedCurves _baked;
     private readonly Dictionary<string, float> _bakedWeights = new();
@@ -60,6 +63,9 @@ public class NativeBridgeReceiver : MonoBehaviour
         if (_avatar != null) return;
         _avatar = GetComponentInParent<AvatarController>();
         if (_avatar == null) _avatar = GetComponent<AvatarController>();
+        // IdleAnimator is [RequireComponent(typeof(AvatarController))], so it always
+        // sits on whichever GameObject the controller resolved to.
+        if (_avatar != null) _idle = _avatar.GetComponent<IdleAnimator>();
     }
 
     /// <summary>Entry point invoked by the native bridge via UnitySendMessage.</summary>
@@ -81,6 +87,12 @@ public class NativeBridgeReceiver : MonoBehaviour
                 float anchor = CC4MessageProtocol.ParseFloatField(json, "startTimeUnityTime", -1f);
                 _startTime = anchor >= 0f ? anchor : Time.time;
 
+                // Sentence sentiment has always been in this payload; nothing read
+                // it until now, so detectSentiment's output reached nothing and the
+                // face stayed flat no matter what was being said.
+                if (_idle != null)
+                    _idle.SetSpeechEmotion(CC4MessageProtocol.ParseStringField(json, "emotion"));
+
                 var visemes = CC4MessageProtocol.ParseVisemeArray(json);
                 if (visemes != null && visemes.Count > 0)
                 {
@@ -92,6 +104,9 @@ public class NativeBridgeReceiver : MonoBehaviour
                     _playing   = _duration > 0f;
                     _snapOnFirstFrame = true;
                     _avatar.SetLipSmoothing(tuning != null ? tuning : LipSyncTuning.Defaults);
+                    // Turn-taking gaze keys off the utterance envelope, so the
+                    // animator needs the final duration (baked tail included).
+                    if (_idle != null) _idle.OnUtteranceStart(_duration);
                     if (logFrames)
                         Debug.Log($"[NativeBridgeReceiver] play (baked): {visemes.Count} visemes -> {_baked.FrameCount} frames, duration {_duration:F2}s");
                 }
@@ -100,6 +115,7 @@ public class NativeBridgeReceiver : MonoBehaviour
                     _keyframes = CC4MessageProtocol.ParseKeyframeArray(json, "blendshapes");
                     _baked     = null;
                     _playing   = _keyframes != null && _keyframes.Count > 0 && _duration > 0f;
+                    if (_playing && _idle != null) _idle.OnUtteranceStart(_duration);
                     if (logFrames)
                         Debug.Log($"[NativeBridgeReceiver] play (legacy): {_keyframes?.Count ?? 0} keyframes, duration {_duration:F2}s, anchor {_startTime:F2}");
                 }
@@ -110,12 +126,53 @@ public class NativeBridgeReceiver : MonoBehaviour
                 _playing = false;
                 _baked   = null;
                 _avatar.ResetAll();
+                // Don't leave the last sentence's sentiment held on the face.
+                if (_idle != null) { _idle.SetSpeechEmotion(null); _idle.OnUtteranceEnd(); }
                 if (logFrames) Debug.Log("[NativeBridgeReceiver] stop");
                 break;
+
+            case "setState":
+            {
+                string raw = CC4MessageProtocol.ParseStringField(json, "state");
+                if (_idle == null)
+                {
+                    Debug.LogWarning("[NativeBridgeReceiver] setState but no IdleAnimator on the character root.");
+                }
+                else if (TryParseAvatarState(raw, out var parsed))
+                {
+                    _idle.state = parsed;
+                    if (logFrames) Debug.Log($"[NativeBridgeReceiver] setState: {parsed}");
+                }
+                else
+                {
+                    Debug.LogWarning($"[NativeBridgeReceiver] setState with unrecognised state '{raw}' — ignoring.");
+                }
+                break;
+            }
 
             default:
                 if (logFrames) Debug.LogWarning($"[NativeBridgeReceiver] Unknown message type: '{type}'");
                 break;
+        }
+    }
+
+    /// <summary>
+    /// Maps the bridge's lowercase state strings onto <see cref="IdleAnimator.AvatarState"/>.
+    /// Hand-rolled rather than Enum.Parse so an unknown string is a warning rather than an
+    /// exception on the UnitySendMessage call path, and so the accepted set stays visible
+    /// next to the protocol docs above.
+    /// </summary>
+    static bool TryParseAvatarState(string raw, out IdleAnimator.AvatarState state)
+    {
+        switch (raw)
+        {
+            case "idle":      state = IdleAnimator.AvatarState.Idle;      return true;
+            case "listening": state = IdleAnimator.AvatarState.Listening; return true;
+            case "speaking":  state = IdleAnimator.AvatarState.Speaking;  return true;
+            case "thinking":  state = IdleAnimator.AvatarState.Thinking;  return true;
+            case "empathy":   state = IdleAnimator.AvatarState.Empathy;   return true;
+            case "waiting":   state = IdleAnimator.AvatarState.Waiting;   return true;
+            default:          state = IdleAnimator.AvatarState.Idle;      return false;
         }
     }
 
@@ -128,6 +185,7 @@ public class NativeBridgeReceiver : MonoBehaviour
         {
             _playing = false;
             _avatar.ResetAll();
+            if (_idle != null) _idle.OnUtteranceEnd();
             return;
         }
 

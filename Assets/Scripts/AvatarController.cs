@@ -23,6 +23,8 @@ public class AvatarController : MonoBehaviour
     private float _lipTau = -1f;
     private float _jawTau = -1f;
     private readonly HashSet<string> _lipShapeNames = new();
+    // Shapes written verbatim, bypassing the smoother — see SetUnsmoothedShapes.
+    private readonly HashSet<string> _unsmoothedShapeNames = new();
 
     [Header("Jaw Bone (teeth only)")]
     [Tooltip("Main jaw bone — drives lower face skin.")]
@@ -184,6 +186,7 @@ public class AvatarController : MonoBehaviour
         foreach (var kvp in _effectiveTarget)
         {
             if (!_shapeMap.ContainsKey(kvp.Key)) continue;
+            if (_unsmoothedShapeNames.Contains(kvp.Key)) { _current[kvp.Key] = kvp.Value * 100f; continue; }
             float alpha = _lipShapeNames.Contains(kvp.Key) ? alphaLip : alphaGeneric;
             _current[kvp.Key] = Mathf.Lerp(_current[kvp.Key], kvp.Value * 100f, alpha);
         }
@@ -191,6 +194,7 @@ public class AvatarController : MonoBehaviour
         foreach (var name in _shapeMap.Keys)
         {
             if (_effectiveTarget.ContainsKey(name)) continue;
+            if (_unsmoothedShapeNames.Contains(name)) { _current[name] = 0f; continue; }
             float cur = _current[name];
             if (cur < 0.05f) { _current[name] = 0f; continue; }
             _current[name] = Mathf.Lerp(cur, 0f, _lipShapeNames.Contains(name) ? alphaLip : alphaGeneric);
@@ -311,6 +315,54 @@ public class AvatarController : MonoBehaviour
         _idleTarget.Clear();
         foreach (var kvp in weights)
             _idleTarget[kvp.Key] = Mathf.Clamp01(kvp.Value);
+    }
+
+    /// <summary>True when this character actually carries the named blendshape.</summary>
+    public bool HasShape(string name) => _shapeMap.ContainsKey(name);
+
+    /// <summary>
+    /// Marks shapes that must be written EXACTLY as supplied, with no smoothing.
+    ///
+    /// The generic smoother is a first-order lag, so it can only approach its
+    /// target — it never arrives. That is fine for slow channels but wrong for any
+    /// caller that already supplies its own curve. Blink is the case that bit us:
+    /// its 75ms close / 30ms hold / 180ms open envelope through a 30ms lag peaked
+    /// at 0.93, so the eyes never actually sealed. Measured across frame rates:
+    /// tau 0.03 -> 0.932, tau 0.015 -> 0.986, tau 0.008 -> 0.999, direct -> 1.0.
+    /// </summary>
+    public void SetUnsmoothedShapes(IEnumerable<string> names)
+    {
+        _unsmoothedShapeNames.Clear();
+        foreach (var n in names) if (!string.IsNullOrEmpty(n)) _unsmoothedShapeNames.Add(n);
+    }
+
+    /// <summary>
+    /// Warns once about any name in <paramref name="names"/> that this character
+    /// doesn't carry.
+    ///
+    /// Writing a weight for an unknown shape is silently a no-op — the write loop
+    /// just doesn't find it in _shapeMap. That has already cost this project real
+    /// bugs: the Three.js path spent its life driving 'Cheek_Raise_L' and
+    /// 'Eye_Squint_L' when the CC5 meshes name them 'Eye_Cheek_Raise_L' and
+    /// 'Eye_Squint_Inner_L', so the Duchenne smile never once fired and nothing
+    /// ever said so. Any animation component that drives shapes by name should
+    /// call this at startup.
+    /// </summary>
+    public void AuditShapes(IEnumerable<string> names, string owner)
+    {
+        var missing = new List<string>();
+        foreach (var n in names)
+            if (!string.IsNullOrEmpty(n) && !_shapeMap.ContainsKey(n) && !missing.Contains(n))
+                missing.Add(n);
+
+        if (missing.Count == 0)
+        {
+            Debug.Log($"[AvatarController] {owner}: all driven blendshapes resolved on '{name}'.");
+            return;
+        }
+        Debug.LogWarning(
+            $"[AvatarController] {owner}: {missing.Count} blendshape(s) NOT on '{name}' — " +
+            $"these writes will silently do nothing: {string.Join(", ", missing)}");
     }
 
     // ── Inspector helpers ─────────────────────────────────────────────────────
