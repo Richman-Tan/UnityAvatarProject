@@ -237,6 +237,7 @@ public static class LipSyncMetrics
 public class LipSyncResult
 {
     public string fixture;
+    public string character; // "aaron" | "ariana" | "unknown" — which character root was active for the run
     public bool   passed;
     public int    passedChecks;
     public int    totalChecks;

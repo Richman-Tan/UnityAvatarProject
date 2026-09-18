@@ -143,6 +143,7 @@ public class LipSyncTestDriver : MonoBehaviour
             recorder.WriteCsv(Path.Combine(runDir, $"{fixture.name}.csv"));
 
             var result = LipSyncMetrics.Compute(fixture, recorder.Samples);
+            result.character = ActiveCharacterId();
             File.WriteAllText(Path.Combine(runDir, $"{fixture.name}_metrics.json"),
                               JsonUtility.ToJson(result, true));
             results.Add(result);
@@ -215,6 +216,17 @@ public class LipSyncTestDriver : MonoBehaviour
         head.localRotation = savedHead; // restore; the camera now follows via parenting
     }
 
+    /// <summary>Which character root is active: the router keeps the deselected
+    /// root disabled, so this is the character the receiver/avatar found above.</summary>
+    static string ActiveCharacterId()
+    {
+        var router = FindAnyObjectByType<AvatarRouter>();
+        if (router == null) return "unknown";
+        if (router.arianaRoot != null && router.arianaRoot.activeInHierarchy) return "ariana";
+        if (router.aaronRoot != null && router.aaronRoot.activeInHierarchy) return "aaron";
+        return "unknown";
+    }
+
     static void WriteSummary(string runDir, List<LipSyncResult> results, string error)
     {
         var sb = new StringBuilder();
@@ -225,7 +237,7 @@ public class LipSyncTestDriver : MonoBehaviour
             {
                 if (i > 0) sb.Append(',');
                 var r = results[i];
-                sb.Append("{\"name\":\"" + r.fixture + "\",\"passed\":" + (r.passed ? "true" : "false") +
+                sb.Append("{\"name\":\"" + r.fixture + "\",\"character\":\"" + (r.character ?? "unknown") + "\",\"passed\":" + (r.passed ? "true" : "false") +
                           ",\"checks\":\"" + r.passedChecks + "/" + r.totalChecks +
                           "\",\"jitterRms\":" + r.jitterRms.ToString("F5", System.Globalization.CultureInfo.InvariantCulture) + "}");
             }
